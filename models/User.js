@@ -8,12 +8,13 @@ const L = require('./L');
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
-    type: String
-	, unique: true 
+    type: String,
+	required:true
   }, 
   username: {
     type: String,
-    required: true
+    required: true,
+	unique: true 
   },
   password: {
     type: String,

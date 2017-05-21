@@ -55,3 +55,6 @@ app.listen(port, () => {
 });
 
 //C:\MongoDB\Server\3.4\bin
+//C:\projects\Angular\LBoard
+//C:\projects\Angular\LBoard\Angular
+

@@ -33,7 +33,7 @@ function register( req, res) {
   User.addUser(newUser, (err, user) => {
     if(err){
       res.json({success: false, msg:'Failed to register user'});
-	  console.log("failure");
+	  console.log(err);
     } else {
       res.json({success: true, msg:'User registered'});
 	  	  console.log("success");

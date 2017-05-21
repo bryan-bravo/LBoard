@@ -1,0 +1,9 @@
+<div id ='container'>
+<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']">Login</a>
+<a *ngIf="!authService.loggedIn()" [routerLink]="['/register']">Register</a>
+<!-- <a  [routerLink]="['/userhome']">Home</a> -->
+
+<h3>The L Board</h3>
+<a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" href="#" >Logout</a>
+<!-- <a ??> About</a> -->
+</div>
