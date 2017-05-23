@@ -23,8 +23,15 @@ const FriendSchema = mongoose.Schema({
 const Friend = module.exports = mongoose.model('Friend', FriendSchema);
 
 //add friend
-module.exports.addFriend = function(newFriend,callback){
-       newFriend.save(callback);
+module.exports.addFriend = function(newFriend,res){
+       newFriend.save((err,data)=>{
+		   if(err){
+			throw err;
+				return res.json({success: false, msg:'error adding friend'});
+		   }else{
+				return res.json(data);
+		   }   
+	   });
 }
 
 //remove friend by Id
@@ -41,3 +48,9 @@ module.exports.getFriendById = function(id, callback){
 module.exports.updateLCount = function(FriendId,newLCount,callback){
 	 Friend.findOneAndUpdate({_id:FriendId},{ $set: { lCount: newLCount }},callback);
 	}
+//GET userhome
+module.exports.getUserFriends = function(parentName, callback){
+  Friend.find({parentUserName:parentName}, callback);
+
+  }
+	

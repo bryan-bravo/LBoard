@@ -19,6 +19,7 @@ router.delete('/deleteuser', deleteUser);
 router.post('/addfriend', addFriend);
 router.delete('/deletefriend/:id', deleteFriend);
 router.post('/addL', addL);
+router.get('/userHome/:parentName',userHome);
 
 // Register(add) User
 function register( req, res) {
@@ -104,7 +105,7 @@ function addFriend(req,res){
    User.getUserByUsername(req.body.parentUserName, (err, user) => {
     if(err){
 		throw err;
-		res.json({success: false, msg:'username fail'});
+		res.json({success: false, msg:'no user with that user name'});
 
     } else {
 		//now working with returned user
@@ -112,7 +113,7 @@ function addFriend(req,res){
 			res.json({success: false, msg:'user doesnt exist'}); 
 		}else{
 		  if(user.friendCount<10){
-			Friend.addFriend(newFriend, callback(err,user,"addingfriend",res));
+			Friend.addFriend(newFriend,res);
 		    let newFriendCount=user.friendCount+1;
 			User.updateFriendCount(user.username, newFriendCount,dummycallback);
 		  }else 
@@ -176,7 +177,23 @@ Friend.removeFriend(friend_id,(error,friend)=>{
 		}
 	});	
   }
-  
+//---------- getting data -----------//
+
+//poplulate user home
+function userHome(req,res){
+	if(req.params.parentName=='' ||req.params.parentName== null)
+		res.json({success: false, msg:'invalid parameters'}); 
+		
+	let parentName = req.params.parentName;
+	Friend.getUserFriends(parentName,(error,friends)=>{
+		if(error){
+			res.json({success: false, msg:'something went wrong'}); 
+		}else{
+			res.json(friends);
+		}
+	});
+}
+
  //helper functions
  function callback(error,returnThing,message,res){
 	if(error){

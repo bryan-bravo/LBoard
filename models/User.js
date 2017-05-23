@@ -88,6 +88,36 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 module.exports.updateFriendCount = function(queryusername,newFriendCount,callback){
  User.findOneAndUpdate({username:queryusername},{ $set: { friendCount: newFriendCount }},callback);
 }
+// db.users.update({"username":"bork"},{$set:{"friendCount":0}})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

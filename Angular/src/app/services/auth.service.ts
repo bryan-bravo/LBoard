@@ -12,11 +12,12 @@ export class AuthService {
   constructor(private http:Http) {
     this.isDev = false; // Change to false before deployment
   }
+  //
   //communicates with backend to add user
   registerUser(user){
 		let headers = new Headers();
 		headers.append('Content-Type','application/json');
-		let ep = this.prepEndpoint('controllers/registeruser');
+		let ep = this.prepEndpoint('registeruser');
 		return this.http.post(ep, user,{headers: headers})
 		  .map(res => res.json());
   }
@@ -24,7 +25,7 @@ export class AuthService {
     authenticateUser(user){
 		let headers = new Headers();
 		headers.append('Content-Type','application/json');
-		let ep = this.prepEndpoint('controllers/authenticate');
+		let ep = this.prepEndpoint('authenticate');
 		return this.http.post(ep, user,{headers: headers})
 		  .map(res => res.json());
   }
@@ -38,21 +39,21 @@ export class AuthService {
   }
    //clears the local storage
     logout(){
-    this.authToken = null;
-    this.user = null;
-    localStorage.clear();
+		this.authToken = null;
+		this.user = null;
+		localStorage.clear();
   }
   //checks if a token is in local storage
     loggedIn(){
-    return tokenNotExpired('id_token');
+		return tokenNotExpired('id_token');
   }
-  
   //gives where the http request will be
     prepEndpoint(ep){
 		if(this.isDev){
 		  return ep;
 		} else {
-		  return 'http://localhost:8080/'+ep;
+		  return 'http://localhost:8080/controllers/'+ep;
 		}
    }  
+
 }

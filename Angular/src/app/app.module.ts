@@ -12,6 +12,8 @@ import { UserHomeComponent } from './components/userhome/userhome.component';
 
 import {AuthGuardService} from './services/authguard.service';
 import {AuthService} from './services/auth.service';
+import {UserService} from './services/user.service';
+
 import {FlashMessagesModule} from 'angular2-flash-messages';
 
 const appRoutes: Routes =  [
@@ -36,7 +38,7 @@ const appRoutes: Routes =  [
 	FlashMessagesModule
 
   ],
-  providers: [AuthService,AuthGuardService],
+  providers: [AuthService,AuthGuardService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
