@@ -1,0 +1,44 @@
+/* big screens */
+/* mid screens */
+#container{
+height:5vh;
+background-color:rgb(0, 204, 255);
+color:white;	
+margin-top:0px;
+}
+	
+.flex-container { 
+	display:flex; 
+	justify-content:space-around; 
+	align-items:center;
+	margin: 0px 0px 0px 0px;
+	width:100%;
+} 
+
+#plus{
+		/* background-color:orange; */
+		border: none;
+		height:100%;
+		padding: 0px 2.5%;
+}
+p{
+	vertical-align:middle;
+    position: relative;
+    top: 50%;
+	 -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}		
+
+a{
+	text-decoration:none;
+	color:white;
+	height:100%;
+	padding: 0px 2.5%;	
+	vertical-align:middle;
+}		
+a:hover{
+	background-color:orange;
+}
+
+/* small screens */

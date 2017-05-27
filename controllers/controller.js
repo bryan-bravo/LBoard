@@ -15,14 +15,15 @@ const L = require('../models/L');
 
 router.post('/authenticate', authenticate);
 router.post('/registeruser', register);
-router.delete('/deleteuser', deleteUser);
+router.delete('/deleteuser/:username', deleteUser);
 router.post('/addfriend', addFriend);
 router.delete('/deletefriend/:id', deleteFriend);
 router.post('/addL', addL);
-router.get('/userHome/:parentName',userHome);
+router.get('/getFriends/:parentName',userHome);
+router.get('/friendHome/:friendId',friendHome);
 
 // Register(add) User
-function register( req, res) {
+function register( req, res) {   
  
   let newUser = new User({
     name: req.body.name,
@@ -42,7 +43,7 @@ function register( req, res) {
     }
   });
 
-}
+} 
 
 //Authenticate User
 function authenticate(req, res) {
@@ -82,12 +83,12 @@ function authenticate(req, res) {
 //Delete User (change)
 function deleteUser(req, res) {
   //delete
-  User.removeUser(req.body.username,
+  User.removeUser(req.params.username,
   function(err, User) {
     if(err) {
-      res.send('error removing')
+      res.json({success: false, msg: 'Error Removing'});
     } else {
-      console.log('user removed');
+      res.json({success: true, msg: 'Success Removing'});
       res.status(204);
     }
   });
@@ -124,13 +125,13 @@ function addFriend(req,res){
  }
  
 //DeleteFriend
- function deleteFriend(req,res){
+ function deleteFriend(req,res){  
  var friend_id = req.params.id;
 
 	//delete all the ls associated with friend 
- L.ClearL(friend_id, (err,L)=>{
-	if(err)
-		console.log("firned not deleted");	
+ L.ClearL(friend_id, (error,L)=>{
+	if(error)
+		throw error;
 	else
 		console.log("friend deleted")
  });
@@ -138,8 +139,11 @@ function addFriend(req,res){
 Friend.removeFriend(friend_id,(error,friend)=>{
 	if(error){
 		throw error;
+		res.json({success: false, msg:'could not delete friend'});
 	}else{
 		//lol subtract from the user friendcount
+		// res.json(friend);
+		res.json({success: true, msg:'friend deleted'});
 		User.getUserByUsername(friend.parentUserName,(error,user)=>{
 			if
 				(error) throw error;
@@ -153,14 +157,15 @@ Friend.removeFriend(friend_id,(error,friend)=>{
   
 //addL
   function addL(req,res){
-	let newL = new L({
+
+  let newL = new L({
 	title:req.body.title,
 	date:req.body.date,
 	desc:req.body.desc,
 	friendId:req.body.friendId
 	});
 	
-	L.addL(newL,(err,L)=>{dummycallback();});
+	L.addL(newL,res);
     //get the Friend by Id
 	Friend.getFriendById(newL.friendId, (error,friend)=>{
 		if(error){
@@ -170,9 +175,7 @@ Friend.removeFriend(friend_id,(error,friend)=>{
 			if(Friend==null)
 				console.log("no friend found by that id");
 			else{
-				Friend.updateLCount(friend.id,friend.lCount+1,(error, rturn)=>{
-					callback(error,rturn,"updating Lcount",res);
-				});
+				Friend.updateLCount(friend.id,friend.lCount+1,()=>{});
 			}		
 		}
 	});	
@@ -193,7 +196,20 @@ function userHome(req,res){
 		}
 	});
 }
-
+//get friend's Ls
+function friendHome(req,res){
+	if(req.params.friendId=='' ||req.params.friendId== null)
+		res.json({success: false, msg:'invalid parameters'}); 
+		
+	let friendId = req.params.friendId;
+	L.getFriendLs(friendId,(error,Ls)=>{
+		if(error){
+			res.json({success: false, msg:'something went wrong'}); 
+		}else{
+			res.json(Ls);
+		}
+	});
+}
  //helper functions
  function callback(error,returnThing,message,res){
 	if(error){

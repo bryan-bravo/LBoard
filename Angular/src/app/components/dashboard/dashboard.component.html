@@ -1,9 +1,11 @@
-<div id ='container'>
-<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']">Login</a>
-<a *ngIf="!authService.loggedIn()" [routerLink]="['/register']">Register</a>
-<!-- <a  [routerLink]="['/userhome']">Home</a> -->
+<div id ='container' class='flex-container' >
 
-<h3>The L Board</h3>
-<a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" href="#" >Logout</a>
-<!-- <a ??> About</a> -->
+	<h3 class='flex-item'> <!-- logo --> LBoard</h3>
+	
+	<h3 class='flex-item'>{{userName}}</h3>
+
+	<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']"class='flex-item'><p>Login</p></a>
+	
+	<a *ngIf="!authService.loggedIn()" [routerLink]="['/register']"><p>Register</p></a>
+
 </div>

@@ -7,7 +7,7 @@ const FriendSchema = mongoose.Schema({
   name: {
     type: String,
 	required: true
-  },
+  }, 
   lCount: {
     type: Number,
     required: true
@@ -18,7 +18,7 @@ const FriendSchema = mongoose.Schema({
   }
   //  ,photo: {}
 
-});
+}); 
 
 const Friend = module.exports = mongoose.model('Friend', FriendSchema);
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {UserService} from '../../services/user.service';
+
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 
@@ -9,23 +11,20 @@ import {FlashMessagesService} from 'angular2-flash-messages';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-   constructor(
+// make this only valid when user logged in
+   // userName:string;JSON.parse(localStorage.getItem("user")).name;
+  addButton:boolean;
+  
+  constructor(
     private authService:AuthService,
-    private router:Router,
+	private userService:UserService,
+	private router:Router,
     private flashMessage:FlashMessagesService) { }
 	
-	//when logging out
-    onLogoutClick(){
-    this.authService.logout();
-    this.flashMessage.show('You are logged out', {
-      cssClass:'alert-success',
-      timeout: 3000
-    });
-    this.router.navigate(['/login']);
-    return false;
-  }
+//functions
+
   
-  ngOnInit() { }
+  ngOnInit() {
+	}
 
 }

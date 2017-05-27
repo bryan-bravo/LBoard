@@ -1,0 +1,17 @@
+<p>
+{{friendId}}
+</p>
+<form (submit)="onAddLSubmit()" id='addL'>
+	<label>Title</label>
+	<input type="text" [(ngModel)]="newTitle" name="title" >
+	<label>Description</label>
+	<input type="text" [(ngModel)]="newDesc" name="desc" >
+	<!-- add a picture -->
+	<input type="submit"  value="New L">
+</form>
+<!-- going to be the Ls for display-->
+<div id='container' >
+		<a  class='L' *ngFor='let L of Ls' >
+			{{L.title}}
+		</a>
+</div>

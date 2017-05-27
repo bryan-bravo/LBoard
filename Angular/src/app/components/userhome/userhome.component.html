@@ -1,13 +1,65 @@
-<h3>{{name}} 's terrible friends,friend count: {{friendCount}}</h3>
-
-<form (submit)="onAddFriendSubmit()" id='addFriend'>
-	<label>Name</label>
-	<input type="text" [(ngModel)]="newFriendName" name="name" >
-	<input type="submit"  value="Add Friend">
-</form>
-
-<div id='container' >
-	<div class='friend' *ngFor='let friend of friends'>
-		{{friend.name}}
+<!-- USER DASHBOARD -->
+<div id='userDB' class='flex-container'>
+	<div class='flex-item'>
+		<p >friend count: {{friendCount}}</p>
 	</div>
+	
+	<div class='flex-item'(click)='setActionSelector("add")'>
+		<p>Add Friend</p>
+	</div>
+	
+	<div class='flex-item' (click)='setActionSelector("delete")'>
+		<p>Delete Friend</p>
+	</div>
+	
+	<div class='flex-item' (click)='setActionSelector("settings")'>
+		<p>Settings</p>
+	</div>
+	
+</div>
+
+<!-- NEED TO MAKE A COUPLE OF DIVS FOR ALL THE BUTTONS AND THEIR RESPECTIVE BOOLEANS/FUNCTIONS -->
+<div *ngIf='getActionSelectorDelete()' id='delete'>
+	<ul>
+		<li *ngFor='let friend of friends'>{{friend.name}} <button class='liDeleteButton' (click)='deleteFriendChosen(friend._id)' >Delete</button></li>
+	</ul>
+</div>
+<div *ngIf='getActionSelectorSettings()' id='settings' class='flex-container'>
+	<button class='flex-item' id='deleteaccount' (click)='deleteUserPrompt()'>Delete My Account</button>
+	<button class='flex-item' id='Logout' (click)='onLogoutClick()'> LogOut</button>
+</div>
+<div *ngIf='getActionSelectorAdd()' id='add'>
+	<form  (submit)="onAddFriendSubmit()" id='addFriend' >
+		<label>Name</label>
+		<input type="text" [(ngModel)]="newFriendName" name="name" >
+		<input type="submit"  value="Add Friend">
+	</form>
+</div>
+<!-- warning message -->
+<div *ngIf=warningMessage id='warningmessage'>
+	<p>Are You Sure? This Action Cannot Be UnDone</p>
+	<button *ngIf="getActionSelectorSettings()" (click)='deleteUser()'>Yes del user</button>
+	<button *ngIf="getActionSelectorDelete()" (click)='deleteFriend()' >Yes del friend</button>
+
+	<button (click)='resetFormHelpers()' >No</button>
+
+</div>
+<!-- friend  -->
+
+<!-- [routerLink]="['/friendsls', friend._id]" -->
+<div id='iconContainer'  >
+
+	<div class='friendcontainer' *ngFor='let friend of friends' 
+	[ngStyle]="setFriendContainerStyle('')"
+	>	
+		<img 	[routerLink]="['/friendsls', friend._id]"
+			class='friendimage'  
+			src='../../../assets/profile_default.png' />
+		{{friend.name}}
+		{{carouselTracker}}
+	</div>		
+
+</div>
+<div id='arrowContainer'>
+	<button class='arrows' (click)="setFriendContainerStyle('left')" >&lt;</button><button class='arrows' (click)="setFriendContainerStyle('right')" >&gt;</button>
 </div>

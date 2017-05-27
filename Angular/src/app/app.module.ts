@@ -15,11 +15,14 @@ import {AuthService} from './services/auth.service';
 import {UserService} from './services/user.service';
 
 import {FlashMessagesModule} from 'angular2-flash-messages';
+import {FriendsLsComponent } from './components/friends-ls/friends-ls.component';
 
 const appRoutes: Routes =  [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'userhome', component: UserHomeComponent, canActivate:[AuthGuardService]},
+  {path:'friendsls/:friendId', component: FriendsLsComponent, canActivate:[AuthGuardService]},
+
 
 ]
 @NgModule({
@@ -28,7 +31,8 @@ const appRoutes: Routes =  [
     DashboardComponent,
     RegisterComponent,
 	LoginComponent,
-	UserHomeComponent
+	UserHomeComponent,
+	FriendsLsComponent
   ],
   imports: [//i guess this is for like big packages
     BrowserModule,

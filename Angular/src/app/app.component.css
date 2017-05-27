@@ -1,16 +1,7 @@
  /* big screen */
 #container{
-	height:100%;
-	width:70%;
 	text-align:center;
-	margin: auto;
-	background-color:white;
 	
 	}
-#photo{
 	
-}	
-p{ 
-	opacity:.5;
- }		
  /* medium screen */
