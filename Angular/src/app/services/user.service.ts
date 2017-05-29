@@ -15,8 +15,8 @@ export class UserService {
 		return this.http.delete(ep).map(res => res.json());	
   }
   //-------FriendStuff------ 
+		//gets the friends based off parent user name
   getFriends(username){
-		//gets the friends
 		let ep = this.prepEndpoint('getFriends/'+username);
 		return this.http.get(ep).map(res => res.json());	
   }
@@ -37,11 +37,16 @@ export class UserService {
 		let ep = this.prepEndpoint('deleteFriend/'+friendid);
 		return this.http.delete(ep).map(res => res.json());
   }
+  getFriendById(friendId){
+		let ep = this.prepEndpoint('getFriendById/'+friendId);
+		return this.http.get(ep).map(res => res.json());		
+  }  
   //---------LStuff---------
   getFriendLs(friendId){
 	  let ep = this.prepEndpoint('friendHome/'+friendId);
 	  return this.http.get(ep).map(res => res.json());	
-  }
+	
+ }
   
   addL(L){
 		let headers = new Headers();
@@ -51,7 +56,7 @@ export class UserService {
 		  .map(res => res.json());		
 				
   }
-  
+
   //gives where the http request will be
     prepEndpoint(ep){
 		if(this.isDev){

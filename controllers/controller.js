@@ -1,8 +1,8 @@
-/*TODO
+/*TODO 
 -User
 	-inform the user of the type of error returned from registering
 	-Everything here is to modify, need to handle the getting for the front end
-*/
+*/ 
 //controller for User
 const express = require('express');
 const router = express.Router();
@@ -13,15 +13,18 @@ const User = require('../models/User');
 const Friend = require('../models/Friend');
 const L = require('../models/L');
 
+ var dateTime = require('node-datetime');
+
 router.post('/authenticate', authenticate);
 router.post('/registeruser', register);
 router.delete('/deleteuser/:username', deleteUser);
 router.post('/addfriend', addFriend);
 router.delete('/deletefriend/:id', deleteFriend);
 router.post('/addL', addL);
+
 router.get('/getFriends/:parentName',userHome);
 router.get('/friendHome/:friendId',friendHome);
-
+router.get('/getFriendById/:friendId',getFriendById);
 // Register(add) User
 function register( req, res) {   
  
@@ -157,10 +160,13 @@ Friend.removeFriend(friend_id,(error,friend)=>{
   
 //addL
   function addL(req,res){
-
+var dt = dateTime.create();
+var formatted = dt.format('Y-m-d H:M');
   let newL = new L({
+	
 	title:req.body.title,
-	date:req.body.date,
+	// date:req.body.date,
+	date:formatted,
 	desc:req.body.desc,
 	friendId:req.body.friendId
 	});
@@ -210,6 +216,20 @@ function friendHome(req,res){
 		}
 	});
 }
+//get friend object by id
+function getFriendById(req,res){
+	if(req.params.friendId=='' ||req.params.friendId== null)
+		res.json({success: false, msg:'invalid parameters'}); 
+	Friend.getFriendById(req.params.friendId, (error,friend)=>{
+		if(error){
+			throw error; 
+			res.json({success: false, msg:'something went wrong'});
+
+		}else{
+			res.json(friend);
+		}
+	});	
+}	
  //helper functions
  function callback(error,returnThing,message,res){
 	if(error){

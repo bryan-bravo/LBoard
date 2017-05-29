@@ -31,7 +31,7 @@
 <div *ngIf='getActionSelectorAdd()' id='add'>
 	<form  (submit)="onAddFriendSubmit()" id='addFriend' >
 		<label>Name</label>
-		<input type="text" [(ngModel)]="newFriendName" name="name" >
+		<input type="text" [(ngModel)]="newFriendName" name="newFriendName" >
 		<input type="submit"  value="Add Friend">
 	</form>
 </div>

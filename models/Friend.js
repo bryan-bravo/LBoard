@@ -41,7 +41,7 @@ module.exports.removeFriend = function(id, callback){
 
 //get Friend by Id
 module.exports.getFriendById = function(id, callback){
-  Friend.findById(id, callback);
+  Friend.findById({_id: id}, callback);
 }
 
 //update a friend's L count when L is added

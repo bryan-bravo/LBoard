@@ -17,6 +17,7 @@ export class UserHomeComponent implements OnInit {
 	
 	newFriendName:string;
 	delFriendId:string;
+	
 	actionSelector:string;//shows the input options per button
 	warningMessage:boolean;//brings out the warning prompt
 	style:Object;
