@@ -28,7 +28,7 @@ const port = process.env.PORT || 8080;
 app.use(cors());
  
 // Set Static Folder
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'Angular/dist')));
 
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/index.html'));
+  res.sendFile(path.join(__dirname, 'Angular/dist/index.html'));
 });
 
 // Start Server
