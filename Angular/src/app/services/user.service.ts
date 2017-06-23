@@ -68,8 +68,8 @@ export class UserService {
   }
   //gives where the http request will be
     prepEndpoint(ep){
-		if(this.isDev){
-		  return ep;
+		if(!this.isDev){
+		  return 'controllers/'+ep;
 		} else {
 		  return 'http://localhost:8080/controllers/'+ep;
 		}

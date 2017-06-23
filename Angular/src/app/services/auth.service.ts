@@ -50,7 +50,7 @@ export class AuthService {
   //gives where the http request will be
     prepEndpoint(ep){
 		if(this.isDev){
-		  return ep;
+		  return 'controllers/'+ep;
 		} else {
 		  return 'http://localhost:8080/controllers/'+ep;
 		}
