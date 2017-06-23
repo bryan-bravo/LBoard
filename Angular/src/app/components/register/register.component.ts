@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   name: String;
   username: String;
   password: String;
+  retypepassword:String;
   
   constructor(private authService:AuthService,
 			  private router: Router,
@@ -22,21 +23,29 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
   onRegisterSubmit(){
-   //create the model
-   const user = {
+	if(!this.name||!this.username||!this.password||!this.retypepassword){
+		this.flashMessage.show('Empty Field(s).', {cssClass: 'warning', timeout: 3000});
+		return;
+	}
+	if(this.password!=this.retypepassword){
+		this.flashMessage.show('Passwords do not match.', {cssClass: 'warning', timeout: 3000});
+		let password=(<HTMLInputElement>document.getElementById('password'));
+		let retypepassword=(<HTMLInputElement>document.getElementById('retypepassword'));
+		password.value='';
+		retypepassword.value='';
+		return;
+	}
+	const user = {
       name: this.name,
       username: this.username,
       password: this.password
     }
-	//make sure the forms are filled
-	//register user
     this.authService.registerUser(user).subscribe(data => {
 		if(data.success){
-		 this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
-			// this.router.navigate(['/login']);
+		 this.flashMessage.show('You are now registered and can log in', {cssClass: 'success', timeout: 3000});
+		 this.router.navigate(['/login']);
       } else { 
-		  console.log( data)
-			 this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+			 this.flashMessage.show(data.msg, {cssClass: 'warning', timeout: 3000});
 			this.router.navigate(['/register']);
       }
     });	

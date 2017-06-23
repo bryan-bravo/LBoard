@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home/home.component';
 import { DashboardComponent } from'./components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,12 +19,11 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
 import {FriendsLsComponent } from './components/friends-ls/friends-ls.component';
 
 const appRoutes: Routes =  [
+  {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'userhome', component: UserHomeComponent, canActivate:[AuthGuardService]},
   {path:'friendsls/:friendId', component: FriendsLsComponent, canActivate:[AuthGuardService]},
-
-
 ]
 @NgModule({
   declarations: [
@@ -32,15 +32,15 @@ const appRoutes: Routes =  [
     RegisterComponent,
 	LoginComponent,
 	UserHomeComponent,
-	FriendsLsComponent
+	FriendsLsComponent,
+	HomeComponent,
   ],
   imports: [//i guess this is for like big packages
     BrowserModule,
     FormsModule,
     HttpModule,
 	RouterModule.forRoot(appRoutes),
-	FlashMessagesModule
-
+	FlashMessagesModule,
   ],
   providers: [AuthService,AuthGuardService,UserService],
   bootstrap: [AppComponent]

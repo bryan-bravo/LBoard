@@ -12,23 +12,22 @@
 		<p>Delete Friend</p>
 	</div>
 	
-	<div class='flex-item' (click)='setActionSelector("settings")'>
+	<div class='flex-item lastflex-item' (click)='setActionSelector("settings")'>
 		<p>Settings</p>
 	</div>
 	
 </div>
 
-<!-- NEED TO MAKE A COUPLE OF DIVS FOR ALL THE BUTTONS AND THEIR RESPECTIVE BOOLEANS/FUNCTIONS -->
-<div *ngIf='getActionSelectorDelete()' id='delete'>
+
+<div *ngIf='getActionSelectorDelete()' id='delete' class='animated fadeIn'>
 	<ul>
-		<li *ngFor='let friend of friends'>{{friend.name}} <button class='liDeleteButton' (click)='deleteFriendChosen(friend._id)' >Delete</button></li>
+		<li *ngFor='let friend of friends'>{{friend.name}} <button class='liDeleteButton' (click)='deleteFriendChosen(friend._id)' >X</button></li>
 	</ul>
 </div>
-<div *ngIf='getActionSelectorSettings()' id='settings' class='flex-container'>
-	<button class='flex-item' id='deleteaccount' (click)='deleteUserPrompt()'>Delete My Account</button>
-	<button class='flex-item' id='Logout' (click)='onLogoutClick()'> LogOut</button>
+<div *ngIf='getActionSelectorSettings()' id='settings' class='flex-container' class='animated fadeIn'>
+	<button  class='settingsoption' (click)='deleteUserPrompt()'>Delete My Account</button><button  class='settingsoption' (click)='onLogoutClick()'> LogOut</button>
 </div>
-<div *ngIf='getActionSelectorAdd()' id='add'>
+<div *ngIf='getActionSelectorAdd()' id='add' class='animated fadeIn'>
 	<form  (submit)="onAddFriendSubmit()" id='addFriend' >
 		<label>Name</label>
 		<input type="text" [(ngModel)]="newFriendName" name="newFriendName" >
@@ -37,26 +36,23 @@
 </div>
 <!-- warning message -->
 <div *ngIf=warningMessage id='warningmessage'>
-	<p>Are You Sure? This Action Cannot Be UnDone</p>
-	<button *ngIf="getActionSelectorSettings()" (click)='deleteUser()'>Yes del user</button>
-	<button *ngIf="getActionSelectorDelete()" (click)='deleteFriend()' >Yes del friend</button>
 
-	<button (click)='resetFormHelpers()' >No</button>
+	<button *ngIf="getActionSelectorSettings()" class='warningoption'(click)='deleteUser()'>Proceed</button><button *ngIf="getActionSelectorDelete()" class='warningoption'(click)='deleteFriend()' >Proceed</button><button class='warningoption'(click)='resetFormHelpers()' >Cancel</button>
 
 </div>
 <!-- friend  -->
 
-<!-- [routerLink]="['/friendsls', friend._id]" -->
-<div id='iconContainer'  >
+<div id='iconContainer'   >
 
 	<div class='friendcontainer' *ngFor='let friend of friends' 
 	[ngStyle]="setFriendContainerStyle('')"
 	>	
+		<div class='friendimagecontainer animated flip' >
 		<img 	[routerLink]="['/friendsls', friend._id]"
 			class='friendimage'  
-			src='../../../assets/profile_default.png' />
+			src='{{friend.image.data}}' />
+		</div>	
 		{{friend.name}}
-		{{carouselTracker}}
 	</div>		
 
 </div>

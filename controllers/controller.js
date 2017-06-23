@@ -9,18 +9,25 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+
+var dateTime = require('node-datetime');
+var multer  = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
+var btoa = require('btoa');
+
 const User = require('../models/User');
 const Friend = require('../models/Friend');
 const L = require('../models/L');
 
- var dateTime = require('node-datetime');
 
 router.post('/authenticate', authenticate);
 router.post('/registeruser', register);
 router.delete('/deleteuser/:username', deleteUser);
 router.post('/addfriend', addFriend);
 router.delete('/deletefriend/:id', deleteFriend);
-router.post('/addL', addL);
+router.post('/addL',upload.single('file'), addL); 
+router.post('/changephoto',upload.single('file'),changePhoto);
 
 router.get('/getFriends/:parentName',userHome);
 router.get('/friendHome/:friendId',friendHome);
@@ -32,14 +39,19 @@ function register( req, res) {
     name: req.body.name,
     username: req.body.username,
     password: req.body.password,
-	friendCount: 0
+	friendCount: 0,
+	securityquestion:req.body.securityquestion,
+	answer:req.body.answer
   });
 //
   User.addUser(newUser, (err, user) => {
     if(err){
-      res.json({success: false, msg:'Failed to register user'});
-	  console.log(err);
-    } else {
+		if(err.message.includes('duplicate key error')){
+			res.json({success: false, msg:'User already exists.'});
+		}else{	
+			res.json({success: false, msg:'Failed to register user'});
+		}
+	} else {
       res.json({success: true, msg:'User registered'});
 	  	  console.log("success");
 
@@ -57,8 +69,8 @@ function authenticate(req, res) {
     if(err) throw err;
     if(!user){
       return res.json({success: false, msg: 'User not found'});
-    }
-
+    }//else{
+	
     User.comparePassword(password, user.password, (err, isMatch) => {
       if(err) throw err;
       if(isMatch){
@@ -74,11 +86,11 @@ function authenticate(req, res) {
             name: user.name,
             username: user.username,
             email: user.email
-          }
+          }  
         });
       } else {
         return res.json({success: false, msg: 'Wrong password'});
-      }
+      } 
     });
   });
 }
@@ -156,21 +168,33 @@ Friend.removeFriend(friend_id,(error,friend)=>{
 	}
 });
 
-  }
-  
+}
+//change profile photo
+function changePhoto(req,res){
+	Friend.updateProfilePicture(req.body.friendId,arrayBufferToBase64(req.file.buffer),res);
+}	
 //addL
-  function addL(req,res){
-var dt = dateTime.create();
+function addL(req,res){
+var dt = dateTime.create(); 
 var formatted = dt.format('Y-m-d H:M');
-  let newL = new L({
-	
-	title:req.body.title,
-	// date:req.body.date,
-	date:formatted,
-	desc:req.body.desc,
-	friendId:req.body.friendId
+ if(req.file){
+	let base64String=arrayBufferToBase64(req.file.buffer);
+	let image ={data:base64String};
+	var newL = new L({
+		title:req.body.title,
+		date:formatted,
+		desc:req.body.desc,
+		friendId:req.body.friendId,
+		image: image
+	});	 
+ }else{	
+	 var newL = new L({
+			title:req.body.title,
+			date:formatted,
+			desc:req.body.desc,
+			friendId:req.body.friendId,
 	});
-	
+  }	
 	L.addL(newL,res);
     //get the Friend by Id
 	Friend.getFriendById(newL.friendId, (error,friend)=>{
@@ -187,7 +211,6 @@ var formatted = dt.format('Y-m-d H:M');
 	});	
   }
 //---------- getting data -----------//
-
 //poplulate user home
 function userHome(req,res){
 	if(req.params.parentName=='' ||req.params.parentName== null)
@@ -202,7 +225,7 @@ function userHome(req,res){
 		}
 	});
 }
-//get friend's Ls
+//get friend's Ls  
 function friendHome(req,res){
 	if(req.params.friendId=='' ||req.params.friendId== null)
 		res.json({success: false, msg:'invalid parameters'}); 
@@ -224,13 +247,23 @@ function getFriendById(req,res){
 		if(error){
 			throw error; 
 			res.json({success: false, msg:'something went wrong'});
-
+ 
 		}else{
 			res.json(friend);
 		}
 	});	
 }	
  //helper functions
+function arrayBufferToBase64( buffer ){
+    let binary = '';
+    let bytes = new Uint8Array( buffer );
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+     return btoa( binary );
+} 
+
  function callback(error,returnThing,message,res){
 	if(error){
 		res.json({success: false, msg:'Failure with '+message});

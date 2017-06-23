@@ -21,8 +21,10 @@ const LSchema = mongoose.Schema({
    friendId: {
     type: String,
     required: true
+  },
+  image:{
+	data: String 
   }
-//  ,photo: {}
 });
 
 const L = module.exports = mongoose.model('L', LSchema);

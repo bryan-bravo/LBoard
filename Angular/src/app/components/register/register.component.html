@@ -1,17 +1,16 @@
 
-<form (submit)="onRegisterSubmit()">
-  <div >
-    <label>Name</label>
-    <input type="text" [(ngModel)]="name" name="name" >
-  </div>
-  <div >
-    <label>Username</label>
-    <input type="text" [(ngModel)]="username" name="username" >
-  </div>
+<form (submit)='onRegisterSubmit()' id='container' class='animated bounceInDown'>
+    <label class='stretch'>Name</label>
+    <input class='stretch' type='text' [(ngModel)]='name' name='name' >
 
-  <div>
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" >
-  </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
+    <label class='stretch'>Username</label>
+    <input class='stretch' type='text' [(ngModel)]='username' name='username' >
+	
+    <label class='stretch' >Password</label>
+    <input class='stretch' id='password' type='password'	[(ngModel)]='password' name='password' >
+    
+	<label class='stretch'>Retype Password</label>
+    <input class='stretch' id='retypepassword' type='password' [(ngModel)]='retypepassword' name='retypepassword'>
+    
+	<input class='stretch' id='submit' type='submit'  value='Submit'>
 </form>

@@ -1,0 +1,59 @@
+@media (orientation:portrait){
+	#container{
+	background-color:rgb(0, 168, 230);	
+	border: 5px solid rgb(0, 37, 51);
+	height:70vh;
+	/* width:90vw; */
+	margin: 5vh 15vw 0 15vw;
+	font-size:3vw;
+	color:white;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+	align-items:stretch;
+	}
+	.stretch{
+	height:20%;	
+	font-size:7.5vh;
+
+	}
+	#submit{
+		border:none;
+		color:white;
+		background-color:rgb(0, 37, 51);
+	}
+	#submit:hover{
+		cursor:pointer;
+		background-color:rgb(0, 168, 230);	
+	}
+}
+@media (orientation:landscape){
+	#container{
+		background-color:rgb(0, 168, 230);	
+		border: 5px solid rgb(0, 37, 51);
+		height:30vw;
+		width:30vw;
+		margin: 15vh 35vw 0 35vw;
+		font-size:3vw;
+		color:white;
+		display:flex;
+		flex-direction:column;
+		justify-content:space-around;
+		align-items:stretch;
+	}
+
+	.stretch{
+	height:20%;	
+	font-size:3vw;
+
+	}
+	#submit{
+		border:none;
+		color:white;
+		background-color:rgb(0, 37, 51);
+	}
+	#submit:hover{
+		cursor:pointer;
+		background-color:rgb(0, 168, 230);	
+	}
+}

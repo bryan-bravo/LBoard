@@ -1,11 +1,7 @@
-<form (submit)="onLoginSubmit()">
-	<div >
-		<label>Username</label>
-		<input type="text" [(ngModel)]="username" name="username" >
-	</div>
-	<div>
-		<label>Password</label>
-		<input type="password" [(ngModel)]="password" name="password" >
-	</div>
-	<input type="submit" class="btn btn-primary" value="Submit">
+<form (submit)="onLoginSubmit()" id='container' class='animated bounceInDown'>
+	<label class='stretch'>Username</label>
+	<input type="text" [(ngModel)]="username" name="username" class='stretch'> 
+	<label class='stretch'>Password</label>
+	<input type="password" [(ngModel)]="password" name="password" class='stretch'> 
+	<input type="submit"  value="Submit" class='stretch' id='submit'>
 </form>

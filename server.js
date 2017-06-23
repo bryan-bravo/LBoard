@@ -10,7 +10,7 @@ const app = express();
 
 // Connect To Database
 mongoose.connect(config.database);
-
+ 
 // On Connection
 mongoose.connection.on('connected', () => { 
   console.log('Connected to database '+config.database);

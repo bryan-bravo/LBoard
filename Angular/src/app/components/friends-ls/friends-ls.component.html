@@ -1,36 +1,50 @@
-<div id='friendContainer'>
+<div id='friendContainer' class='animated bounceInUp '>
 	<div id='flex-container'>
-		<div class='flex-child'>
+		<div class='flex-child name'>
 			
 			{{currentFriend?.name}}
 		</div>
-		<div  class='flex-child'>
+		<div  class='flex-child name'>
 		#L:{{currentFriend?.lCount}}
 		</div>
+		
 		<button (click)="navUserHome()" class='flex-child' >Home</button>
 		<button (click)="changeAddFormState()" class='flex-child'>New L</button>
-		
-			<form  *ngIf ="showAddForm" (submit)="onAddLSubmit()" id='addL'>
-				<label>Title</label>
-				<input type="text" [(ngModel)]="newTitle" name="title">
-				<label>Description</label>
-				<input type="text" [(ngModel)]="newDesc" name="desc">
-				<button type="button" (click)="changeWarningState()" >Submit</button>
-				<div id='warning' *ngIf="showWarning">
-					<p>
-					Is your information Correct? 
-					The LBoard ensures immutablity of L's
-					</p>
+		<!-- the whole form is a flex item -->
+		<form  *ngIf ="showAddForm" (submit)="onAddLSubmit()" id='addL'>
+			<label>Title</label>
+			<input type="text" [(ngModel)]="newTitle" name="title"><br/>
+			<label>Description</label>
+			<input type="text" [(ngModel)]="newDesc" name="desc"><br/>
+			<!-- file input -->
+			<input type=file #fileInput (change)="checkIfImage('L')" />
+
+			<!-- when the file input changes check 5the mimetype if its not an image: show warning clear the file input -->
+			<button type="button" (click)="changeWarningState()" >Submit</button>
+			<div id='warning' *ngIf="showWarning">
+				<p>
+				Is your information Correct? 
+				The LBoard ensures immutablity of L's
+				</p>
 				<input type="submit" value="Yes" >
+			<!-- configure acceptance of file in AddL() -->
 				<button type='button' (click)="resetFormHelpers()"> No</button>
-
-
-				</div>
-			</form>	
+			</div>
+		</form>	
 	</div>
-		<img id='friendpicture' src='../../../assets/profile_default.png' />
+	<div id='friendpicturecontainer' title='Update Profile Picture'>
+		<img id='friendpicture' src="{{profileSrc}}" (click)="changeUpdatePhotoState()"/>
+	</div>
 </div>
-
+<div id='profileupload' *ngIf="showUpdatePhoto">
+		<input id='updatephotoinput' type=file #proFileInput (change)="checkIfImage('profile')" />
+		<button id='updatephotosubmit' (click)="onUpdatePicture()">Upload</button>
+			
+</div>	
+		<!-- warning for file input on change -->
+<div id ='filewarning' *ngIf="showFileWarning">
+	<p> The file you inserted is not an image</p>
+</div>
 <!-- going to be the Ls for display-->
 <div id='lContainer' >
 		<div  class='L' *ngFor='let L of Ls' >
@@ -38,7 +52,9 @@
 				<label id='title'>{{L.title}}</label>
 				<label id='date'>{{L.date}}</label>
 			</div>
-			<img />
+			<div class='imagecontainer' *ngIf="L.hasImage">
+			<img   class='limage' src="data:image/png;base64,{{L.image.data}}"/>			
+			</div>
 			<p> {{L.desc}}</p>
 		</div>
 </div>

@@ -2,9 +2,9 @@
 
 	<h3 class='flex-item'> <!-- logo --> LBoard</h3>
 	
-	<h3 class='flex-item'>{{userName}}</h3>
+	<h3 class=' -item'>{{userName}}</h3>
 
-	<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']"class='flex-item'><p>Login</p></a>
+	<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']" class='flex-item'><p>Login</p></a>
 	
 	<a *ngIf="!authService.loggedIn()" [routerLink]="['/register']"><p>Register</p></a>
 	
