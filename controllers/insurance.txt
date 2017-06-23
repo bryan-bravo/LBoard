@@ -1,0 +1,40 @@
+//addL
+//binary is done on client side
+  function addL(req,res){
+var dt = dateTime.create(); 
+var formatted = dt.format('Y-m-d H:M');
+
+ if(req.file==null){
+	  var newL = new L({
+			title:req.body.title,
+			date:formatted,
+			desc:req.body.desc,
+			friendId:req.body.friendId,
+		});
+  }else{
+		var newL = new L({
+			title:req.body.title,
+			date:formatted,
+			desc:req.body.desc,
+			friendId:req.body.friendId,
+			image:{
+				data:req.file.buffer,
+				contentType:req.file.mimetype
+			}
+		});
+  }	
+	L.addL(newL,res);
+    //get the Friend by Id
+	Friend.getFriendById(newL.friendId, (error,friend)=>{
+		if(error){
+		throw error; 
+		console.log(error);	
+		}else{
+			if(Friend==null)
+				console.log("no friend found by that id");
+			else{
+				Friend.updateLCount(friend.id,friend.lCount+1,()=>{});
+			}		
+		}
+	});	
+  }

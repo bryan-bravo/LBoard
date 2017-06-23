@@ -8,12 +8,13 @@ const L = require('./L');
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
-    type: String
-	, unique: true 
+    type: String,
+	required:true
   }, 
   username: {
     type: String,
-    required: true
+    required: true,
+	unique: true 
   },
   password: {
     type: String,
@@ -87,6 +88,36 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 module.exports.updateFriendCount = function(queryusername,newFriendCount,callback){
  User.findOneAndUpdate({username:queryusername},{ $set: { friendCount: newFriendCount }},callback);
 }
+// db.users.update({"username":"bork"},{$set:{"friendCount":0}})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,47 +1,64 @@
-/*TODO
+/*TODO 
 -User
 	-inform the user of the type of error returned from registering
 	-Everything here is to modify, need to handle the getting for the front end
-*/
+*/ 
 //controller for User
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+
+var dateTime = require('node-datetime');
+var multer  = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
+var btoa = require('btoa');
+
 const User = require('../models/User');
 const Friend = require('../models/Friend');
 const L = require('../models/L');
 
+
 router.post('/authenticate', authenticate);
 router.post('/registeruser', register);
-router.delete('/deleteuser', deleteUser);
+router.delete('/deleteuser/:username', deleteUser);
 router.post('/addfriend', addFriend);
 router.delete('/deletefriend/:id', deleteFriend);
-router.post('/addL', addL);
+router.post('/addL',upload.single('file'), addL); 
+router.post('/changephoto',upload.single('file'),changePhoto);
 
+router.get('/getFriends/:parentName',userHome);
+router.get('/friendHome/:friendId',friendHome);
+router.get('/getFriendById/:friendId',getFriendById);
 // Register(add) User
-function register( req, res) {
+function register( req, res) {   
  
   let newUser = new User({
     name: req.body.name,
     username: req.body.username,
     password: req.body.password,
-	friendCount: 0
+	friendCount: 0,
+	securityquestion:req.body.securityquestion,
+	answer:req.body.answer
   });
 //
   User.addUser(newUser, (err, user) => {
     if(err){
-      res.json({success: false, msg:'Failed to register user'});
-	  console.log("failure");
-    } else {
+		if(err.message.includes('duplicate key error')){
+			res.json({success: false, msg:'User already exists.'});
+		}else{	
+			res.json({success: false, msg:'Failed to register user'});
+		}
+	} else {
       res.json({success: true, msg:'User registered'});
 	  	  console.log("success");
 
     }
   });
 
-}
+} 
 
 //Authenticate User
 function authenticate(req, res) {
@@ -52,8 +69,8 @@ function authenticate(req, res) {
     if(err) throw err;
     if(!user){
       return res.json({success: false, msg: 'User not found'});
-    }
-
+    }//else{
+	
     User.comparePassword(password, user.password, (err, isMatch) => {
       if(err) throw err;
       if(isMatch){
@@ -69,11 +86,11 @@ function authenticate(req, res) {
             name: user.name,
             username: user.username,
             email: user.email
-          }
+          }  
         });
       } else {
         return res.json({success: false, msg: 'Wrong password'});
-      }
+      } 
     });
   });
 }
@@ -81,12 +98,12 @@ function authenticate(req, res) {
 //Delete User (change)
 function deleteUser(req, res) {
   //delete
-  User.removeUser(req.body.username,
+  User.removeUser(req.params.username,
   function(err, User) {
     if(err) {
-      res.send('error removing')
+      res.json({success: false, msg: 'Error Removing'});
     } else {
-      console.log('user removed');
+      res.json({success: true, msg: 'Success Removing'});
       res.status(204);
     }
   });
@@ -104,7 +121,7 @@ function addFriend(req,res){
    User.getUserByUsername(req.body.parentUserName, (err, user) => {
     if(err){
 		throw err;
-		res.json({success: false, msg:'username fail'});
+		res.json({success: false, msg:'no user with that user name'});
 
     } else {
 		//now working with returned user
@@ -112,7 +129,7 @@ function addFriend(req,res){
 			res.json({success: false, msg:'user doesnt exist'}); 
 		}else{
 		  if(user.friendCount<10){
-			Friend.addFriend(newFriend, callback(err,user,"addingfriend",res));
+			Friend.addFriend(newFriend,res);
 		    let newFriendCount=user.friendCount+1;
 			User.updateFriendCount(user.username, newFriendCount,dummycallback);
 		  }else 
@@ -123,13 +140,13 @@ function addFriend(req,res){
  }
  
 //DeleteFriend
- function deleteFriend(req,res){
+ function deleteFriend(req,res){  
  var friend_id = req.params.id;
 
 	//delete all the ls associated with friend 
- L.ClearL(friend_id, (err,L)=>{
-	if(err)
-		console.log("firned not deleted");	
+ L.ClearL(friend_id, (error,L)=>{
+	if(error)
+		throw error;
 	else
 		console.log("friend deleted")
  });
@@ -137,8 +154,11 @@ function addFriend(req,res){
 Friend.removeFriend(friend_id,(error,friend)=>{
 	if(error){
 		throw error;
+		res.json({success: false, msg:'could not delete friend'});
 	}else{
 		//lol subtract from the user friendcount
+		// res.json(friend);
+		res.json({success: true, msg:'friend deleted'});
 		User.getUserByUsername(friend.parentUserName,(error,user)=>{
 			if
 				(error) throw error;
@@ -148,18 +168,34 @@ Friend.removeFriend(friend_id,(error,friend)=>{
 	}
 });
 
-  }
-  
+}
+//change profile photo
+function changePhoto(req,res){
+	Friend.updateProfilePicture(req.body.friendId,arrayBufferToBase64(req.file.buffer),res);
+}	
 //addL
-  function addL(req,res){
-	let newL = new L({
-	title:req.body.title,
-	date:req.body.date,
-	desc:req.body.desc,
-	friendId:req.body.friendId
+function addL(req,res){
+var dt = dateTime.create(); 
+var formatted = dt.format('Y-m-d H:M');
+ if(req.file){
+	let base64String=arrayBufferToBase64(req.file.buffer);
+	let image ={data:base64String};
+	var newL = new L({
+		title:req.body.title,
+		date:formatted,
+		desc:req.body.desc,
+		friendId:req.body.friendId,
+		image: image
+	});	 
+ }else{	
+	 var newL = new L({
+			title:req.body.title,
+			date:formatted,
+			desc:req.body.desc,
+			friendId:req.body.friendId,
 	});
-	
-	L.addL(newL,(err,L)=>{dummycallback();});
+  }	
+	L.addL(newL,res);
     //get the Friend by Id
 	Friend.getFriendById(newL.friendId, (error,friend)=>{
 		if(error){
@@ -169,15 +205,65 @@ Friend.removeFriend(friend_id,(error,friend)=>{
 			if(Friend==null)
 				console.log("no friend found by that id");
 			else{
-				Friend.updateLCount(friend.id,friend.lCount+1,(error, rturn)=>{
-					callback(error,rturn,"updating Lcount",res);
-				});
+				Friend.updateLCount(friend.id,friend.lCount+1,()=>{});
 			}		
 		}
 	});	
   }
-  
+//---------- getting data -----------//
+//poplulate user home
+function userHome(req,res){
+	if(req.params.parentName=='' ||req.params.parentName== null)
+		res.json({success: false, msg:'invalid parameters'}); 
+		
+	let parentName = req.params.parentName;
+	Friend.getUserFriends(parentName,(error,friends)=>{
+		if(error){
+			res.json({success: false, msg:'something went wrong'}); 
+		}else{
+			res.json(friends);
+		}
+	});
+}
+//get friend's Ls  
+function friendHome(req,res){
+	if(req.params.friendId=='' ||req.params.friendId== null)
+		res.json({success: false, msg:'invalid parameters'}); 
+		
+	let friendId = req.params.friendId;
+	L.getFriendLs(friendId,(error,Ls)=>{
+		if(error){
+			res.json({success: false, msg:'something went wrong'}); 
+		}else{
+			res.json(Ls);
+		}
+	});
+}
+//get friend object by id
+function getFriendById(req,res){
+	if(req.params.friendId=='' ||req.params.friendId== null)
+		res.json({success: false, msg:'invalid parameters'}); 
+	Friend.getFriendById(req.params.friendId, (error,friend)=>{
+		if(error){
+			throw error; 
+			res.json({success: false, msg:'something went wrong'});
+ 
+		}else{
+			res.json(friend);
+		}
+	});	
+}	
  //helper functions
+function arrayBufferToBase64( buffer ){
+    let binary = '';
+    let bytes = new Uint8Array( buffer );
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+     return btoa( binary );
+} 
+
  function callback(error,returnThing,message,res){
 	if(error){
 		res.json({success: false, msg:'Failure with '+message});

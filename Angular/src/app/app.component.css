@@ -1,0 +1,8 @@
+ /* big screen */
+#container{
+	text-align:center;
+	overflow:hidden;
+	align-items:center;
+	}
+
+ /* medium screen */

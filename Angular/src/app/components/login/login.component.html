@@ -1,0 +1,7 @@
+<form (submit)="onLoginSubmit()" id='container' class='animated bounceInDown'>
+	<label class='stretch'>Username</label>
+	<input type="text" [(ngModel)]="username" name="username" class='stretch'> 
+	<label class='stretch'>Password</label>
+	<input type="password" [(ngModel)]="password" name="password" class='stretch'> 
+	<input type="submit"  value="Submit" class='stretch' id='submit'>
+</form>
