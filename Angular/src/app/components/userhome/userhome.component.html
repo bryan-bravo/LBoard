@@ -1,61 +1,58 @@
 <!-- USER DASHBOARD -->
-<div id='userDB' class='flex-container'>
-	<div class='flex-item'>
-		<p >friend count: {{friendCount}}</p>
-	</div>
-	
-	<div class='flex-item'(click)='setActionSelector("add")'>
-		<p>Add Friend</p>
-	</div>
-	
-	<div class='flex-item' (click)='setActionSelector("delete")'>
-		<p>Delete Friend</p>
-	</div>
-	
-	<div class='flex-item lastflex-item' (click)='setActionSelector("settings")'>
-		<p>Settings</p>
-	</div>
-	
-</div>
+<div id='dash'>
+  <label>Welcome, {{name}}</label>
 
+  <button (click)='setActionSelector("manageFriends")' class='button'>
+    Manage Friends
+  </button>
 
-<div *ngIf='getActionSelectorDelete()' id='delete' class='animated fadeIn'>
-	<ul>
-		<li *ngFor='let friend of friends'>{{friend.name}} <button class='liDeleteButton' (click)='deleteFriendChosen(friend._id)' >X</button></li>
-	</ul>
-</div>
-<div *ngIf='getActionSelectorSettings()' id='settings' class='flex-container' class='animated fadeIn'>
-	<button  class='settingsoption' (click)='deleteUserPrompt()'>Delete My Account</button><button  class='settingsoption' (click)='onLogoutClick()'> LogOut</button>
-</div>
-<div *ngIf='getActionSelectorAdd()' id='add' class='animated fadeIn'>
-	<form  (submit)="onAddFriendSubmit()" id='addFriend' >
-		<label>Name</label>
-		<input type="text" [(ngModel)]="newFriendName" name="newFriendName" >
-		<input type="submit"  value="Add Friend">
-	</form>
-</div>
-<!-- warning message -->
-<div *ngIf=warningMessage id='warningmessage'>
-
-	<button *ngIf="getActionSelectorSettings()" class='warningoption'(click)='deleteUser()'>Proceed</button><button *ngIf="getActionSelectorDelete()" class='warningoption'(click)='deleteFriend()' >Proceed</button><button class='warningoption'(click)='resetFormHelpers()' >Cancel</button>
+  <button (click)='setActionSelector("settings")' class='button'>
+    Settings
+  </button>
 
 </div>
-<!-- friend  -->
 
-<div id='iconContainer'   >
-
-	<div class='friendcontainer' *ngFor='let friend of friends' 
-	[ngStyle]="setFriendContainerStyle('')"
-	>	
-		<div class='friendimagecontainer animated flip' >
-		<img 	[routerLink]="['/friendsls', friend._id]"
-			class='friendimage'  
-			src='{{friend.image.data}}' />
-		</div>	
-		{{friend.name}}
-	</div>		
-
+<!-- manage friends -->
+<div *ngIf='actionSelector=="manageFriends"' id='manageFriends' class='animated fadeIn'>
+  <img src='../../../assets/cross-out.png' class='exit'  (click)='resetFormHelpers()'>
+  <form (submit)="onAddFriendSubmit()" id='addFriend'>
+    <label>Name</label>
+    <input type="text" [(ngModel)]="newFriendName" name="newFriendName">
+    <input type="submit" value="Add Friend" class='button'>
+  </form>
+  <ul>
+    <li *ngFor='let friend of friends'>{{friend.name}}
+      <button class='liDeleteButton' (click)='deleteFriendChosen(friend._id)'>Delete</button>
+    </li>
+  </ul>
+  <div *ngIf='warningMessage' id='warningmessage'>
+    <p>This action cannot be undone.</p>
+    <!-- <button *ngIf="getActionSelectorSettings()" class='warningoption' (click)='deleteUser()'>Proceed</button> -->
+    <button  (click)='deleteFriend()' class='warning'>Proceed</button>
+    <button  (click)='resetFormHelpers()' class='button'>Cancel</button>
+  </div>
 </div>
-<div id='arrowContainer'>
-	<button class='arrows' (click)="setFriendContainerStyle('left')" >&lt;</button><button class='arrows' (click)="setFriendContainerStyle('right')" >&gt;</button>
+
+<!--settings -->
+<div *ngIf='actionSelector=="settings"' id='settings'  class='animated fadeIn'>
+    <img src='../../../assets/cross-out.png' class='exit'  (click)='resetFormHelpers()'>
+  <button class='button' (click)='deleteUserPrompt()'>Delete My Account</button>
+  <button class='button' (click)='onLogoutClick()'> LogOut</button>
+  <div *ngIf=warningMessage id='warningmessage'>
+    <p>This action cannot be undone.</p>
+    <button class='warning' (click)='deleteUser()'>Proceed</button>
+    <button class='button' (click)='resetFormHelpers()'>Cancel</button>
+
+  </div>
+</div>
+<!-- friendw  -->
+<div id='iconContainer'>
+  <div class='friendcontainer' *ngFor='let friend of friends' [ngStyle]="setFriendContainerStyle()">
+    <div class='imagecontainer'>
+      <img [routerLink]="['/friendsls', friend._id]" class='friendimage' src='{{friend.image.data}}' />
+    </div>
+    <label class='friendname'>
+    {{friend.name}}
+      </label>
+  </div>
 </div>

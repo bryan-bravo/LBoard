@@ -4,11 +4,13 @@
 	
 	<h3 class=' -item'>{{userName}}</h3>
 
-	<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']" class='flex-item'><p>Login</p></a>
+	<a *ngIf="!authService.loggedIn()" (click)='toggleLogin()' class='flex-item'><p>Login</p></a>
 	
-	<a *ngIf="!authService.loggedIn()" [routerLink]="['/register']"><p>Register</p></a>
+	<a *ngIf="!authService.loggedIn()" (click)='showLogin=false' [routerLink]="['/register']"><p>Register</p></a>
 	
 	<a *ngIf="authService.loggedIn()" [routerLink]="['/userhome']"><p>Home</p></a>
 
 
 </div>
+<app-login *ngIf='showLogin' (loggedIn)='toggleLogin()'></app-login>
+

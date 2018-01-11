@@ -1,5 +1,6 @@
 
-<form (submit)='onRegisterSubmit()' id='container' class='animated bounceInDown'>
+<form (submit)='onRegisterSubmit()' id='container' class='animated fadeIn'>
+    <h3>Please fill out the following</h3>
     <label class='stretch'>Name</label>
     <input class='stretch' type='text' [(ngModel)]='name' name='name' >
 
@@ -12,5 +13,5 @@
 	<label class='stretch'>Retype Password</label>
     <input class='stretch' id='retypepassword' type='password' [(ngModel)]='retypepassword' name='retypepassword'>
     
-	<input class='stretch' id='submit' type='submit'  value='Submit'>
+	<input class='stretch' id='submit' type='submit'  value='Register'>
 </form>

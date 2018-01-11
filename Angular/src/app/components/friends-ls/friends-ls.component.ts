@@ -18,6 +18,7 @@ export class FriendsLsComponent implements OnInit {
 	
 	showAddForm:boolean;
 	showWarning:boolean;
+	showFileWarning:boolean;
 	showUpdatePhoto:boolean;
 	
 	newTitle:string;
@@ -40,7 +41,8 @@ export class FriendsLsComponent implements OnInit {
 	   this.populateLData();
 	   this.getFriendById();
 	   this.showAddForm=false;
-	   this.showWarning=false;
+		 this.showWarning=false;
+		 this.showWarning=false;
 	   this.showUpdatePhoto=false;
   }
   
@@ -77,7 +79,6 @@ export class FriendsLsComponent implements OnInit {
  //heart of component
     onAddLSubmit(){
 		if(!this.newTitle||!this.newDesc){
-			this.flashMessage.show('Empty field.', {cssClass: 'warning', timeout: 3000});
 			return;
 		}
 		let fileToUpload = this.getFileFromInput(this.lFileInput);
@@ -136,31 +137,36 @@ export class FriendsLsComponent implements OnInit {
 		var fileToUpload = this.getFileFromInput(this.proFileInput);
 		var fileInput=this.proFileInput;
 	}
-	if(fileToUpload.type == 'image/jpeg' || fileToUpload.type == 'image/png'){}
+	if(fileToUpload.type == 'image/jpeg' || fileToUpload.type == 'image/png'){
+		this.showFileWarning=false;
+	}
 	else{
 		fileInput.nativeElement.value='';
-			this.flashMessage.show('File is not an image.', {cssClass: 'warning', timeout: 3000});
+		this.showFileWarning=true;
 	}
   }
 
  
 //display functions
   changeAddFormState(){
-	this.showAddForm=true;
+		this.resetFormHelpers();
+		this.showAddForm=true;
   }	
   changeWarningState(){
     this.showWarning=true; 
   }	
 
   changeUpdatePhotoState(){
+		this.resetFormHelpers();
   	this.showUpdatePhoto=true;
   }	  
   resetFormHelpers(){ 
-    this.showWarning =false; 
- 	this.showAddForm=false;
-	this.showUpdatePhoto=false;
-	this.newTitle='';
-	this.newDesc='';
+		this.showWarning =false; 
+		this.showFileWarning =false; 
+		this.showAddForm=false;
+		this.showUpdatePhoto=false;
+		this.newTitle='';
+		this.newDesc='';
   }	
 
 }

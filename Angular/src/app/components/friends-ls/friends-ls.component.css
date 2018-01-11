@@ -1,222 +1,177 @@
 /* horizontal screen */
-@media (orientation:landscape){
-	:host{
-		display:block;
-		padding:5vw 0;
-	}
-	#friendContainer{
-		border:5px solid rgb(0, 168, 230);
-		height:30vw;
-		width:60vw;
-		margin: 0 20vw;
-		background-color:white;
-	}	
 
-	#flex-container{
-		display:flex;
-		flex-direction:column;
-		width:30%;
-		height:100%;
-		float:left;
-		align-items:stretch;
-		}	
-	.flex-child{
-		height:7.5vw;
-		border:none;
-		text-decoration:none;
-		background-color:rgb(0, 168, 230);
-		color:white;
-		padding:0;
-		font-size:2.5vh;
-	}
-	.flex-child:hover{
-		cursor:pointer;
-		background-color:rgb(0, 37, 51);
-	}
-	.name:hover{
-		cursor:auto;
-		background-color:rgb(0, 168, 230);
-	}
-	#friendpicturecontainer{
-		height:100%;
-		width:50%;
-	/* should be the same amount as the height of parent container */
-		margin:0px 40%;
-		border-radius:100%;
-		overflow:hidden;
-		display:flex;
-		justify-content:center;
-		
-	}
-	#friendpicture{
-	/* transform:translateY(50%); */
-	height:100%;
-	cursor:pointer;
-	}
-	#profileupload{ 
-		background-color:rgb(0, 168, 230);	
-		border:5px solid rgb(0, 168, 230);
-		border-top:0px !important;
-		width:60vw;
-		margin: 0 20vw;
+@media (orientation:landscape) {
+   :host {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  /* dashbar */
+  #dashbar {
+    border-bottom: 1px solid rgb(0, 168, 230);
+    width: 80%;
+    padding: 1em 0;
+    margin: 1em 9.9%;
+  }
+  #flex-container {
+    display: flex;
+    flex-direction: row;
+  }
+  #flex-container>* {
+    margin-right: 5px;
+  }
 
+  #friendpicturecontainer {
+    height: 10vw;
+    float: left;
+    position: relative;
+    transform: translate(-2vw, -2vh);
+  }
+  #friendpicture {
+	border: 1px solid rgb(0, 168, 230);
+    border-radius: 100%;
+    height: 100%;
+  }
 
-
-		}
-	#updatephotoinput,#updatephotosubmit{
-	}
-	.L{
-		background-color:white;
-		display:block;
-		border:7px solid rgb(0, 168, 230);
-		height:auto;
-		width:60vw;
-		margin: 5vw 20vw 0 20vw;
-		
-	}
-	.top{
+  /* add L */
+  #addL,#profileupload{
+	width: 20vw;
+  padding: 1em;
+  background-color: rgb(206, 232, 243);
+  position: absolute;
+  transform: translateX(90%);
 	display:flex;
-	justify-content:space-between;
-	background-color:rgb(0, 168, 230);
-	align-items:center;
-	}	
+	flex-direction: column;
+	justify-content: flex-start;
+	text-align:left;
+  }
+  .local-warning{
+    margin: 5px 0;
+  }
+  /* lstuff */
+  .L {
+    background-color: white;
+    display: block;
+    border: 2px solid rgb(0, 168, 230);
+    height: auto;
+    width: 60vw;
+    margin: 5vw 20vw 0 20vw;
+  }
+  .top {
+    display: flex;
+    justify-content: space-around;
+    padding:5px;
+    background-color: rgb(206, 232, 243);
+    align-items: center;
+  }
 
-	#title{
-		margin-left:10%;
-		padding-top:2%;
-
-	}
-
-	#date{
-		margin-right:10%;
-		padding-top:2%;
-
-		}	
-	#filewarning{
-		border:1px solid red;
-		width:60vw;
-		margin: 0 20vw;
-
-
-	}	
-	.imagecontainer{
-		height:20vw;
-		background-color:rgb(0, 37, 51);
-		
-	}
-	.limage{
-	height:100%;
-	}	
+  .imagecontainer {
+    height: 20vw;
+    background-color:#9ab9b9;
+  }
+  .limage {
+    height: 100%;
+  }
+  .description{
+    padding:.5em;
+  }
 }
-@media (orientation:portrait),(max-width:900px){
-	:host{
-		display:flex;
-		justify-content:center;
-		flex-direction:column;
-		align-items:center;
-		padding:5vw 0;
-	}
-	/* container of top box */
-	#friendContainer{
-		display:flex;
-		flex-direction:column-reverse;
-		border:5px solid rgb(0, 168, 230);
-		height:auto;
-		width:90vw;
-		background-color:white;
 
-	}	
-/* buttons */
-	#flex-container{
-		display:flex;
-		flex-direction:column;
-		height:auto;
-		width:100%;
-		/* height:100%; */
-		float:left;
-		align-items:stretch;
-		}	
-	.flex-child{
-		height:7.5vw;
-		border:none;
-		text-decoration:none;
-		/* background-color:rgb(0, 37, 51); */
-		background-color:rgb(0, 168, 230);
-		color:white;
-		padding:0;
-	}
-	.flex-child:hover{
-		background-color:rgb(0, 37, 51);
-		cursor:pointer;
-	}
-	.name:hover{
-		background-color:rgb(0, 168, 230);
-		cursor:auto;
-	}
-		
-	#friendpicturecontainer{
-		height:50vw;
-		width:50vw;
-	/* should be the same amount as the height of parent container */
-		margin:0px 20vw;
-		border-radius:100%;
-		overflow:hidden;
-		display:flex;
-		justify-content:center;
-		
-	}
-	#friendpicture{
-	/* transform:translateY(50%); */
-	height:100%;
-	cursor:pointer;
-	}
-	#profileupload{ 
-		background-color:rgb(0, 168, 230);	
-		border:5px solid rgb(0, 168, 230);
-		border-top:0px !important;
-		width:60vw;
-		margin: 0 20vw;
-		}
-	.L{
-		background-color:white;
-		display:block;
-		border:5px solid rgb(0, 168, 230);
-		height:auto;
-		width:90vw;
-		margin-top: 5vw ;
-		
-	}
-	.top{
-	display:flex;
-	justify-content:space-between;
-	background-color:rgb(0, 168, 230);
-	align-items:center;
-	}	
+@media (orientation:portrait),
+(max-width:900px) {
+   :host {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 5vw 0;
+  }
+  /* container of top box */
+  #friendContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    border: 5px solid rgb(0, 168, 230);
+    height: auto;
+    width: 90vw;
+    background-color: white;
+  }
+  /* buttons */
+  #flex-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    /* height:100%; */
+    float: left;
+    align-items: stretch;
+  }
+  .flex-child {
+    height: 7.5vw;
+    border: none;
+    text-decoration: none;
+    /* background-color:rgb(0, 37, 51); */
+    background-color: rgb(0, 168, 230);
+    color: white;
+    padding: 0;
+  }
+  .flex-child:hover {
+    background-color: rgb(0, 37, 51);
+    cursor: pointer;
+  }
+  .name:hover {
+    background-color: rgb(0, 168, 230);
+    cursor: auto;
+  }
+  #friendpicturecontainer {
+    height: 50vw;
+    width: 50vw;
+    /* should be the same amount as the height of parent container */
+    margin: 0px 20vw;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  #friendpicture {
+    /* transform:translateY(50%); */
+    height: 100%;
+    cursor: pointer;
+  }
+  #profileupload {
+    background-color: rgb(0, 168, 230);
+    border: 5px solid rgb(0, 168, 230);
+    border-top: 0px !important;
+    width: 60vw;
+    margin: 0 20vw;
+  }
+  .L {
+    background-color: white;
+    display: block;
+    border: 5px solid rgb(0, 168, 230);
+    height: auto;
+    width: 90vw;
+    margin-top: 5vw;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(0, 168, 230);
+    align-items: center;
+  }
+  #title {
+    margin-left: 10%;
+    padding-top: 2%;
+  }
+  #date {
+    margin-right: 10%;
+    padding-top: 2%;
+  }
 
-	#title{
-		margin-left:10%;
-		padding-top:2%;
-
-	}
-
-	#date{
-		margin-right:10%;
-		padding-top:2%;
-
-		}	
-	#filewarning{
-		border:1px solid red;
-		width:60vw;
-		margin: 0 20vw;
-
-
-	}	
-	.imagecontainer{
-		height:60vw;
-		background-color:rgb(0, 37, 51);
-		
-	}
-	.limage{
-	height:100%;
-	}
-}	
+  .imagecontainer {
+    height: 60vw;
+    background-color: rgb(0, 37, 51);
+  }
+  .limage {
+    height: 100%;
+  }
+}

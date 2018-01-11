@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from'./components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -21,7 +21,6 @@ import {FriendsLsComponent } from './components/friends-ls/friends-ls.component'
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
-  {path:'login', component: LoginComponent},
   {path:'userhome', component: UserHomeComponent, canActivate:[AuthGuardService]},
   {path:'friendsls/:friendId', component: FriendsLsComponent, canActivate:[AuthGuardService]},
 ]

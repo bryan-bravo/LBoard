@@ -9,21 +9,36 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     background: transparent;
 }
 body{
-	font-family: 'Lato', sans-serif;
-	background-color:rgb(230, 248, 255);
+
+	font-family: 'Questrial', sans-serif;
+	/* background-color:rgb(230, 248, 255); */
 
 }
 .warning{
 	color:white;
 	background-color:rgb(255, 92, 51);
-	height:5vh;
-	font-size:4vh;
-	width:100vw;
+	border: none;
+	padding: 5px;
+	cursor:pointer;
 	}
 
 .success{
 	color:white;
 	background-color:rgb(77, 255, 77);
-	height:5vh;
-	font-size:4vh;
+	border: none;
+	padding: 5px;
+	cursor:pointer;
 	}	
+.button{
+	background-color:#e06a6a;
+	color:white;
+	border: none;
+	padding: 5px;
+	cursor:pointer
+}
+.exit{
+margin:0 0 2% 95%;
+cursor:pointer;
+z-index:1;
+
+}

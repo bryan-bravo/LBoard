@@ -1,4 +1,4 @@
- import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit,Output,EventEmitter  } from '@angular/core';
 import {AuthService} from '../../services/auth.service'; 
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   username: String;
   password: String;
-  
+  @Output() loggedIn = new EventEmitter<boolean>();
   constructor(private authService:AuthService,
 			  private router: Router,
 			  private flashMessage:FlashMessagesService
@@ -39,13 +39,14 @@ export class LoginComponent implements OnInit {
 			this.flashMessage.show('You are now logged in', {
 			  cssClass: 'success',
 			  timeout: 5000});
-			 this.router.navigate(['userhome']);//user home
+				this.loggedIn.emit(false);
+				this.router.navigate(['userhome']);//user home
 			
       } else {
 			this.flashMessage.show(data.msg, {
 			cssClass: 'warning',
 			timeout: 5000});
-			this.router.navigate(['login']);
+			// this.router.navigate(['login']);
       }
     });
   }

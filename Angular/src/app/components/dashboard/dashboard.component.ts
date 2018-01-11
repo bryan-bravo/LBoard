@@ -11,20 +11,25 @@ import {FlashMessagesService} from 'angular2-flash-messages';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-// make this only valid when user logged in
-   // userName:string;JSON.parse(localStorage.getItem("user")).name;
+
   addButton:boolean;
-  
+  showLogin:boolean;
   constructor(
     private authService:AuthService,
-	private userService:UserService,
-	private router:Router,
+	  private userService:UserService,
+  	private router:Router,
     private flashMessage:FlashMessagesService) { }
 	
 //functions
 
   
   ngOnInit() {
-	}
+    this.showLogin=false;
+  }
+  toggleLogin(){
+    this.showLogin=!this.showLogin; 
+  }
+  
+    
 
 }

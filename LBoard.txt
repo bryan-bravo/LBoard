@@ -1,8 +1,12 @@
 1 made a branch : git branch client
+
 2 switched to that branch : git checkout client
+
 3 add all the changes: git add *
-4. commited them, thats the message that will be in center of giuthub:  git commit -m "client started,login and registration done"
-5. pushed the branch: git push origin client
+
+4. commited them, thats the message that will be in center of giuthub: git commit -m "client started,login and registration done"
+
+5. pushed the branch:git push origin client
  
  main
  \
