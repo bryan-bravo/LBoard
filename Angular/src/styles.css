@@ -21,7 +21,12 @@ body{
 	padding: 5px;
 	cursor:pointer;
 	}
-
+.warning-message{
+	color:white;
+	background-color:rgb(255, 92, 51);
+	border: none;
+	padding: 5px;
+}
 .success{
 	color:white;
 	background-color:rgb(77, 255, 77);

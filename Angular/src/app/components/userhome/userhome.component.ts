@@ -25,7 +25,7 @@ export class UserHomeComponent implements OnInit {
 	constructor(private userService:UserService,
 			    private router: Router,
 				private authService:AuthService,
-				private flashMessage:FlashMessagesService	
+				private flashMessage:FlashMessagesService
 			   ){}
 	ngOnInit() {
 		this.populateData();
@@ -112,10 +112,6 @@ export class UserHomeComponent implements OnInit {
 	}
 	onLogoutClick(){
 		this.authService.logout();
-		this.flashMessage.show('You are logged out', {
-			cssClass:'success',
-			timeout: 2000 
-		});
 		this.router.navigate(['/']);
 		return false;
   }

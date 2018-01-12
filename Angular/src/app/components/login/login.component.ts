@@ -9,7 +9,8 @@ import {FlashMessagesService} from 'angular2-flash-messages';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+	showWarning:boolean;
+	warning:string;
   username: String;
   password: String;
   @Output() loggedIn = new EventEmitter<boolean>();
@@ -17,7 +18,10 @@ export class LoginComponent implements OnInit {
 			  private router: Router,
 			  private flashMessage:FlashMessagesService
 			  ) { }
-  ngOnInit() {}
+  ngOnInit() {
+		this.warning='';
+		this.showWarning=false;
+	}
   
   onLoginSubmit(){
      //make model
@@ -27,27 +31,21 @@ export class LoginComponent implements OnInit {
     }
 	//comm with server
 	if(!this.username||!this.password){
-		this.flashMessage.show('Empty field(s).', {
-			  cssClass: 'warning',
-			  timeout: 2000});
+		this.warning='Empty Field(s)';
+		this.showWarning=true;
 		return;
 	}
 	this.authService.authenticateUser(user).subscribe(data => {
        if(data.success){
-			//the data returned if successful:  
-			this.authService.storeUserData(data.token, data.user);
-			this.flashMessage.show('You are now logged in', {
-			  cssClass: 'success',
-			  timeout: 5000});
+				//the data returned if successful:  
+				this.authService.storeUserData(data.token, data.user);
 				this.loggedIn.emit(false);
 				this.router.navigate(['userhome']);//user home
 			
       } else {
-			this.flashMessage.show(data.msg, {
-			cssClass: 'warning',
-			timeout: 5000});
-			// this.router.navigate(['login']);
-      }
+				this.warning=data.msg;
+				this.showWarning=true;
+			}
     });
   }
 	

@@ -1,17 +1,17 @@
 
 <form (submit)='onRegisterSubmit()' id='container' class='animated fadeIn'>
     <h3>Please fill out the following</h3>
-    <label class='stretch'>Name</label>
-    <input class='stretch' type='text' [(ngModel)]='name' name='name' >
+    <label >Name</label>
+    <input type='text' [(ngModel)]='name' name='name' >
 
-    <label class='stretch'>Username</label>
-    <input class='stretch' type='text' [(ngModel)]='username' name='username' >
+    <label>Username</label>
+    <input  type='text' [(ngModel)]='username' name='username' >
 	
-    <label class='stretch' >Password</label>
-    <input class='stretch' id='password' type='password'	[(ngModel)]='password' name='password' >
+    <label  >Password</label>
+    <input  id='password' type='password'	[(ngModel)]='password' name='password' >
     
-	<label class='stretch'>Retype Password</label>
-    <input class='stretch' id='retypepassword' type='password' [(ngModel)]='retypepassword' name='retypepassword'>
-    
-	<input class='stretch' id='submit' type='submit'  value='Register'>
+	<label >Retype Password</label>
+    <input  id='retypepassword' type='password' [(ngModel)]='retypepassword' name='retypepassword'>
+    <p class='warning-message' *ngIf='showWarning' [class.success]='warning=="Registration successful, you can now log in"'>{{warning}}</p>
+	<input  class='button' type='submit'  value='Register'>
 </form>

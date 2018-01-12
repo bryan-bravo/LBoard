@@ -4,5 +4,6 @@
 	<input type="text" [(ngModel)]="username" name="username"> 
 	<label >Password</label>
 	<input type="password" [(ngModel)]="password" name="password" > 
+	<p class='warning-message'  *ngIf='showWarning'>{{warning}}</p>
 	<input type="submit"  value="Submit" class='button' id='submit'>
 </form>
