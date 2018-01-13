@@ -45,12 +45,12 @@ export class UserService {
 	  let ep = this.prepEndpoint('friendHome/'+friendId);
 	  return this.http.get(ep).map(res => res.json());	
  }
- changeFriendPhoto(friendId,file){
+ changeFriendPhoto(friendId,filebuffer){
  	let headers = new Headers();
 	let input = new FormData();
     let ep = this.prepEndpoint('changephoto');
 	input.append("friendId", friendId);
-	input.append("file",file);
+	input.append("image",filebuffer);
     return this.http.post(ep, input,{headers: headers}).map(res => res.json());
  } 
   //---------LStuff---------
@@ -61,8 +61,7 @@ export class UserService {
 		input.append("title",L.title);
 		input.append("desc",L.desc);
 		input.append("friendId",L.friendId);
-		input.append("file",L.file);
-
+		input.append("image",L.file);
 		return this.http.post(ep, input,{headers: headers})
 		  .map(res => res.json());						
   }

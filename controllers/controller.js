@@ -9,7 +9,6 @@ var dateTime = require('node-datetime');
 var multer = require('multer');
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
-var btoa = require('btoa');
 
 const User = require('../models/User');
 const Friend = require('../models/Friend');
@@ -22,8 +21,7 @@ router.delete('/deleteuser/:username', deleteUser);
 router.post('/addfriend', addFriend);
 router.delete('/deletefriend/:id', deleteFriend);
 router.post('/addL', upload.single('file'), addL);
-router.post('/changephoto', upload.single('file'), changePhoto);
-
+router.post('/changephoto',upload.single('file'), changePhoto);
 router.get('/getFriends/:parentName', userHome);
 router.get('/friendHome/:friendId', friendHome);
 router.get('/getFriendById/:friendId', getFriendById);
@@ -163,23 +161,23 @@ function deleteFriend(req, res) {
     });
 
 }
+
 //change profile photo
 function changePhoto(req, res) {
-    Friend.updateProfilePicture(req.body.friendId, arrayBufferToBase64(req.file.buffer), res);
+    Friend.updateProfilePicture(req.body.friendId, req.body.image, res);
 }
 //addL
 function addL(req, res) {
     var dt = dateTime.create();
     var formatted = dt.format('Y-m-d H:M');
-    if (req.file) {
-        let base64String = arrayBufferToBase64(req.file.buffer);
-        let image = { data: base64String };
+    console.log(req.body)
+    if (req.body.image!='undefined') {
         var newL = new L({
             title: req.body.title,
             date: formatted,
             desc: req.body.desc,
             friendId: req.body.friendId,
-            image: image
+            image: { data: req.body.image }
         });
     } else {
         var newL = new L({
@@ -246,16 +244,6 @@ function getFriendById(req, res) {
             res.json(friend);
         }
     });
-}
-//helper functions
-function arrayBufferToBase64(buffer) {
-    let binary = '';
-    let bytes = new Uint8Array(buffer);
-    let len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
 }
 
 function callback(error, returnThing, message, res) {

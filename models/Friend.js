@@ -55,15 +55,14 @@ module.exports.getUserFriends = function(parentName, callback){
 }
 //updating the profile picture
 module.exports.updateProfilePicture = function(friendId,data,res){
-let image={data:data};
-Friend.findOneAndUpdate({_id:friendId},{ $set: { image:image }},(err,friend)=>{
-if(err){
-throw err;
-return res.json({success: false, msg:'error adding friend'});
-}else{
-return res.json(friend);
-}    
-});
-
+  let image={data:data};
+  Friend.findOneAndUpdate({_id:friendId},{ $set: { image:image }},(err,friend)=>{
+  if(err){
+    throw err;
+  return res.json({success: false, msg:'error adding friend'});
+    }else{
+  return res.json(friend);
+  }    
+  });
 }
 	

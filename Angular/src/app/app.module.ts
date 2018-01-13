@@ -17,6 +17,7 @@ import {UserService} from './services/user.service';
 
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {FriendsLsComponent } from './components/friends-ls/friends-ls.component';
+import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -29,10 +30,12 @@ const appRoutes: Routes =  [
     AppComponent,
     DashboardComponent,
     RegisterComponent,
-	LoginComponent,
-	UserHomeComponent,
-	FriendsLsComponent,
-	HomeComponent,
+    LoginComponent,
+    UserHomeComponent,
+    FriendsLsComponent,
+    HomeComponent,
+    ImageCropperComponent,
+    // CropperSettings
   ],
   imports: [//i guess this is for like big packages
     BrowserModule,

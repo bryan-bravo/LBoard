@@ -18,13 +18,10 @@
   <input type="text" [(ngModel)]="newTitle" name="title">
   <label>Description</label>
   <input type="text" [(ngModel)]="newDesc" name="desc">
-  <br/>
   <!-- file input -->
-  <input type=file #fileInput (change)="checkIfImage('L')" />
-  <div *ngIf="showFileWarning">
-    <p class='warning local-warning'> The file you inserted is not an image</p>
-  </div>
-  <!-- when the file input changes check 5the mimetype if its not an image: show warning clear the file input -->
+  <label>Image (optional)</label>
+  <input  type=file (change)='fileChangeListener($event)' />
+  <img-cropper [image]="data1" #cropper [settings]="cropperSettings1" (onCrop)="cropped($event)" ></img-cropper>
   <button type="button" (click)="changeWarningState()" class='button'>Submit</button>
 
   <div id='warning' *ngIf="showWarning">
@@ -32,7 +29,6 @@
       Is your information Correct? The LBoard ensures immutablity of L's
     </p>
     <input type="submit" value="Yes" class='button'>
-    <!-- configure acceptance of file in AddL() -->
     <button type='button' (click)="resetFormHelpers()" class='button'> No</button>
   </div>
 </form>
@@ -41,13 +37,9 @@
   <img src='../../../assets/cross-out.png' class='exit' (click)='resetFormHelpers()'>
 
   <label>Please upload an image of your friend</label>
-  <input id='updatephotoinput' type=file #proFileInput (change)="checkIfImage('profile')" />
-  <div *ngIf="showFileWarning">
-    <p class='warning local-warning'> The file you inserted is not an image</p>
-  </div>
+  <input  type=file (change)='fileChangeListener($event)' />
+  <img-cropper [image]="data1" #cropper [settings]="cropperSettings1" (onCrop)="cropped($event)" ></img-cropper>
   <button id='updatephotosubmit' (click)="onUpdatePicture()" class='button'>Upload</button>
-  <!-- warning for file input on change -->
-
 </div>
 
 <!-- going to be the Ls for display-->
@@ -59,6 +51,7 @@
     </div>
     <div class='imagecontainer' *ngIf="L.hasImage">
       <img class='limage' src="data:image/png;base64,{{L.image.data}}" />
+      <!-- <img class='limage' src="{{L.image.data}}" /> -->
     </div>
     <p class='description'> {{L.desc}}</p>
   </div>
