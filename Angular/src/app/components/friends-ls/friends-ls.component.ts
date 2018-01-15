@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router }   from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 
 import {UserService} from '../../services/user.service';
@@ -24,19 +24,15 @@ showUpdatePhoto:boolean;
 newTitle:string;
 newDesc:string;
 
-//Cropper 1 data
+// Cropper 1 data
 data1:any;
 cropperSettings1:CropperSettings;
 @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
-	
-	
-
   constructor(
 		private navrouter:Router, 
 		private router: ActivatedRoute,
 		private userService: UserService,
-		private flashMessage:FlashMessagesService
-	){
+		private flashMessage:FlashMessagesService){
 		this.cropperSettings1 = new CropperSettings();
 		this.cropperSettings1.width = 200;
 		this.cropperSettings1.height = 200;

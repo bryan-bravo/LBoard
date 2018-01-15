@@ -1,10 +1,21 @@
-@media (orientation:portrait){
+@media(orientation:portrait) and (max-width:760px){
 	#container{
-		background-color:rgb(0, 168, 230);	
-		border: 2px solid rgb(0, 37, 51);
+		background-color: rgb(206, 232, 243);
 		margin: 5px 15vw;
 		padding:.5em;
-		color:white;
+		display:flex;
+		flex-direction:column;
+		justify-content:space-around;
+		align-items:stretch;
+		position:relative;
+	}
+
+}
+@media(orientation:portrait) and (min-width:761px){
+	#container{
+		background-color: rgb(206, 232, 243);
+		margin: 0 35vw;
+		padding:.5em;
 		display:flex;
 		flex-direction:column;
 		justify-content:space-around;
@@ -26,9 +37,8 @@
 		position:absolute;
 		z-index:1;
 	}
-	#container>*{
-		margin-bottom: 5px;
-	}
 
-
+}
+#container>*{
+	margin-bottom: 5px;
 }
