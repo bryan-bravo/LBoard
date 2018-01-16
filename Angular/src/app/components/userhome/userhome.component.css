@@ -3,8 +3,155 @@
   width: 100%;
   background-color: white;
 }
+.settingsoption:hover,
+.warningoption:hover {
+  background-color: rgb(153, 226, 255);
+  color: rgb(0, 37, 51);
+}
+.settingsoption:hover,
+.warningoption:hover {
+  background-color: rgb(153, 226, 255);
+  color: rgb(0, 37, 51);
+}
+ul {
+  margin-top:1em;
+  list-style-type: none;
+}
+li {
+  width: 100%;
+  background-color: white;
+  margin: 0 0 3px 0;
+  height: 21px;
+}
+.liDeleteButton {
+  height:100%;
+  border: none;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(255, 92, 51);
+  float: right;
+  cursor: pointer;
+}
+.friendimage {
+  height:100%;
+  width: 100%;
+  cursor: hand;
+  cursor: pointer;
+}
+.friendcontainer, .imagecontainer {
+  width: 100%;
+  border-radius: 100%;
+  overflow:hidden;
 
-@media (orientation:landscape) {
+}  
+.friendname{
+color:black;
+}
+
+#warningmessage > *{
+  margin-top: 1em ;
+}
+/* ---------------------------------------- */
+/* mobile porttrait */
+@media(orientation:portrait) and (max-width:760px){
+  #dash {
+    padding: 1em;
+    border-bottom: 1px solid rgb(0, 168, 230);
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center; */
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap:.2em;
+  }
+
+  #manageFriends,#settings {
+    width: 90vw;
+    margin:3px;
+    padding: 1em;
+    background-color: rgb(206, 232, 243);
+    position: absolute;
+  }
+
+  #iconContainer {
+    width: 80%;
+    margin: 1em 9.9%;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+ 
+  }
+
+}
+/* mobile landscape */
+@media (orientation:landscape) and (max-width:760px){
+  #dash {
+    width: 80%;
+    padding: 1em;
+    margin: 1em 9.9%;
+    border-bottom: 1px solid rgb(0, 168, 230);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  #dash>* {
+    margin-right: 5px;
+  }
+  #manageFriends,#settings {
+    margin: auto;
+    padding: 1em;
+    background-color: rgb(206, 232, 243);
+    position: absolute;
+    transform: translateX(60%);
+  }
+
+  #iconContainer {
+    width: 80%;
+    margin: 1em 9.9%;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+ 
+  }
+}
+/* tablet portrait */
+@media(orientation:portrait) and (min-width:761px){
+
+  #dash {
+    padding: 1em;
+    border-bottom: 1px solid rgb(0, 168, 230);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+  }
+  #dash>* {
+    margin-right: 5px;
+  }
+
+   #manageFriends,#settings {
+    margin: auto;
+    padding: 1em;
+    background-color: rgb(206, 232, 243);
+    position: absolute;
+    transform: translateX(60%);
+  }
+
+  #iconContainer {
+    width: 80%;
+    margin: 1em 9.9%;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+ 
+  }
+
+}
+/* tablet landscape and laptop */
+@media(orientation:landscape) and (min-width:1024px){
   #dash {
     width: 80%;
     padding: 1em;
@@ -26,30 +173,7 @@
     position: absolute;
     transform: translateX(90%);
   }
-  ul {
-    margin-top:1em;
-    list-style-type: none;
-  }
-  li {
-    width: 100%;
-    background-color: white;
-    margin: 0 0 3px 0;
-    height: 21px;
-  }
-  .liDeleteButton {
-	  height:100%;
-    border: none;
-    text-decoration: none;
-    color: white;
-    background-color: rgb(255, 92, 51);
-    float: right;
-    cursor: pointer;
-  }
-  #warningmessage > *{
-    margin-top: 1em ;
-  }
-
-  /* --------------------- */
+  
   #iconContainer {
     width: 80%;
     margin: 1em 9.9%;
@@ -58,168 +182,5 @@
     grid-gap: 1em;
  
   }
-  .friendcontainer {
-    width: 100%;
-    border-radius: 100%;
-    overflow:hidden;
 
-  }
-  .imagecontainer{
-    width: 100%;
-    border-radius: 100%;
-    overflow:hidden;
-  }
-  .friendimage {
-    height:100%;
-    width: 100%;
-    cursor: hand;
-    cursor: pointer;
-  }
-  .friendname{
-  color:black;
-  }
-  /* --------------------- */
-  #arrowContainer {
-    height: 10vh;
-    width: 100%;
-    background-color: rgb(260, 260, 260);
-  }
-
-  
-  .settingsoption:hover,
-  .warningoption:hover {
-    background-color: rgb(153, 226, 255);
-    color: rgb(0, 37, 51);
-  }
-}
-
-
-/* vertical screens */
-
-@media (orientation:portrait) {
-  .flex-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0px 0px 0px 0px;
-    width: 100%;
-    background-color: rgb(0, 168, 230);
-    height: 10vh;
-    color: white;
-    margin-top: 0px;
-  }
-  .flex-item {
-    height: 100%;
-    width: 25%;
-    border-left: 1px solid rgb(0, 37, 51);
-    border-bottom: 1px solid rgb(0, 37, 51);
-  }
-  .flex-item:hover {
-    background-color: rgb(153, 226, 255);
-    color: rgb(0, 37, 51);
-    cursor: pointer;
-  }
-  p,
-  span {
-    color: white;
-    vertical-align: middle;
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-  #delete,
-  #settings,
-  #add,
-  #warningmessage {
-    width: 100%;
-    background-color: rgb(0, 168, 230);
-  }
-  .settingsoption,
-  .warningoption {
-    text-decoration: none;
-    border: none;
-    background-color: rgb(0, 168, 230);
-    width: 49.5%;
-    height: 100%;
-    cursor: pointer;
-    color: white;
-  }
-  ul {
-    list-style-type: none;
-    padding: 2% 0%;
-    height: auto;
-    margin: 0% 5%;
-    width: 90%;
-    text-align: center;
-  }
-  li {
-    background-color: rgb(260, 260, 260);
-    position: relative;
-    height: 5vh;
-    width: 100%;
-    margin: 2% 0% 0%;
-    text-align: center;
-    font-size: 3vh;
-    background-color: rgb(230, 248, 255);
-  }
-  .liDeleteButton {
-    border: none;
-    text-decoration: none;
-    height: 100%;
-    color: white;
-    background-color: rgb(255, 92, 51);
-    float: right;
-    cursor: pointer;
-  }
-  /* --------------------- */
-  #iconContainer {
-    background-color: rgb(230, 248, 255);
-    height: 80vh;
-    display: flex;
-    overflow: hidden;
-    /*in carousel tut*/
-    flex-direction: row;
-    align-items: center;
-  }
-  .friendcontainer {
-    height: 60%;
-    font-size: 10vw;
-  }
-  .friendimagecontainer {
-    height: 100%;
-    border-radius: 100%;
-    overflow: hidden;
-    border: 10px solid rgb(0, 37, 51);
-    display: flex;
-    justify-content: center;
-  }
-  .friendimage {
-    height: 100%;
-    cursor: hand;
-    cursor: pointer;
-  }
-  /* --------------------- */
-  #arrowContainer {
-    height: 10vh;
-    width: 100%;
-    background-color: rgb(260, 260, 260);
-  }
-  .arrows {
-    display: inline;
-    height: 100%;
-    width: 50%;
-    background-color: rgb(0, 168, 230);
-    border: none;
-    color: white;
-    font-size: 8vh;
-    cursor: pointer;
-  }
-  .arrows:active,
-  .settingsoption:hover,
-  .warningoption:hover {
-    background-color: rgb(153, 226, 255);
-    color: rgb(0, 37, 51);
-  }
 }

@@ -96,49 +96,49 @@ cropperSettings1:CropperSettings;
 		this.navrouter.navigate(['userhome']);
 	}
   fileChangeListener($event) {
-	var image:any = new Image();
-	var file:File = $event.target.files[0];
-	var myReader:FileReader = new FileReader();
-	var that = this;
-	myReader.onloadend = function (loadEvent:any) {
-			image.src = loadEvent.target.result;
-			that.cropper.setImage(image);
+		var image: any = new Image();
+		var file:File = $event.target.files[0];
+		var myReader:FileReader = new FileReader();
+		var that = this;
+		myReader.onloadend = function (loadEvent:any) {
+				image.src = loadEvent.target.result;
+				that.cropper.setImage(image);
 
-	};
-	myReader.readAsDataURL(file);
+		};
+		myReader.readAsDataURL(file);
 	}
-cropped(bounds:Bounds) {
-	if(this.data1.image.includes('data:image/jpeg;base64'))
-	this.data1.image=this.data1.image.replace('data:image/jpeg;base64,','');
-	if(this.data1.image.includes('data:image/png;base64'))
-	this.data1.image=this.data1.image.replace('data:image/png;base64,','');
+	cropped(bounds:Bounds) {
+		if(this.data1.image.includes('data:image/jpeg;base64'))
+		this.data1.image=this.data1.image.replace('data:image/jpeg;base64,','');
+		if(this.data1.image.includes('data:image/png;base64'))
+		this.data1.image=this.data1.image.replace('data:image/png;base64,','');
 	}
  //heart of component
   onAddLSubmit(){
-	if(!this.newTitle||!this.newDesc){
-		return;
-	}
-	let newL ={
-		title:this.newTitle,
-		desc:this.newDesc,
-		friendId:this.friendId,
-		file:this.data1.image
-	};
-	
-	this.userService.addL(newL).subscribe(L =>{
-		if(L.success==false){
-			this.flashMessage.show(L.msg, {cssClass: 'warning', timeout: 3000});
-		}else{
-			if(L.hasOwnProperty("image"))
-			L.hasImage=true;
-			else
-			L.hasImage=false;				
-		
-			this.Ls.push(L);
-			this.resetFormHelpers();
-			this.currentFriend.lCount++;
+		if(!this.newTitle||!this.newDesc){
+			return;
 		}
-	});	
+		let newL ={
+			title:this.newTitle,
+			desc:this.newDesc,
+			friendId:this.friendId,
+			file:this.data1.image
+		};
+		
+		this.userService.addL(newL).subscribe(L =>{
+			if(L.success==false){
+				this.flashMessage.show(L.msg, {cssClass: 'warning', timeout: 3000});
+			}else{
+				if(L.hasOwnProperty("image"))
+				L.hasImage=true;
+				else
+				L.hasImage=false;				
+			
+				this.Ls.push(L);
+				this.resetFormHelpers();
+				this.currentFriend.lCount++;
+			}
+		});	
   }
   onUpdatePicture(){
 	this.userService.changeFriendPhoto(this.friendId,this.data1.image)
@@ -156,7 +156,12 @@ cropped(bounds:Bounds) {
 	}
 	return null;
   }
+getHeightForCanvas(){
 
+}
+getWidthForCanvas(){
+	
+}
 //display functions
   changeAddFormState(){
 	this.resetFormHelpers();

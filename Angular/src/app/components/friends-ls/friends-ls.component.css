@@ -48,6 +48,7 @@
   .exit{
     align-self:flex-end;
   }
+
   .img-crop{
     background-color: rgb(206, 232, 243);
 
@@ -96,7 +97,7 @@
     align-items: center;
     padding: 5vw 0;
   }
-  /* container of top box */
+  /* dashbar */
   #friendContainer {
     display: flex;
     flex-direction: column-reverse;
@@ -105,37 +106,19 @@
     width: 90vw;
     background-color: white;
   }
-  /* buttons */
+
   #flex-container {
     display: flex;
     flex-direction: column;
     height: auto;
     width: 100%;
-    /* height:100%; */
     float: left;
     align-items: stretch;
   }
-  .flex-child {
-    height: 7.5vw;
-    border: none;
-    text-decoration: none;
-    /* background-color:rgb(0, 37, 51); */
-    background-color: rgb(0, 168, 230);
-    color: white;
-    padding: 0;
-  }
-  .flex-child:hover {
-    background-color: rgb(0, 37, 51);
-    cursor: pointer;
-  }
-  .name:hover {
-    background-color: rgb(0, 168, 230);
-    cursor: auto;
-  }
+
   #friendpicturecontainer {
     height: 50vw;
     width: 50vw;
-    /* should be the same amount as the height of parent container */
     margin: 0px 20vw;
     border-radius: 100%;
     overflow: hidden;
@@ -143,21 +126,39 @@
     justify-content: center;
   }
   #friendpicture {
-    /* transform:translateY(50%); */
     height: 100%;
     cursor: pointer;
   }
-  #profileupload {
-    background-color: rgb(0, 168, 230);
-    border: 5px solid rgb(0, 168, 230);
-    border-top: 0px !important;
-    width: 60vw;
-    margin: 0 20vw;
+/* add L */
+#addL,#profileupload{
+	width: 80%;
+  padding: 1em;
+  background-color: rgb(206, 232, 243);
+  position: absolute;
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	text-align:left;
   }
+  .exit{
+    align-self:flex-end;
+  }
+
+  .img-crop{
+    background-color: rgb(206, 232, 243);
+
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .local-warning{
+    margin: 5px 0;
+  }
+/* L stuff */
   .L {
     background-color: white;
     display: block;
-    border: 5px solid rgb(0, 168, 230);
+    border: 2px solid rgb(0, 168, 230);
     height: auto;
     width: 90vw;
     margin-top: 5vw;
@@ -165,7 +166,7 @@
   .top {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(0, 168, 230);
+    background-color: rgb(206, 232, 243);
     align-items: center;
   }
   #title {
@@ -179,9 +180,13 @@
 
   .imagecontainer {
     height: 60vw;
-    background-color: rgb(0, 37, 51);
+    background-color:#9ab9b9;
   }
   .limage {
     height: 100%;
   }
+  .description{
+    padding:.5em;
+  }
+ 
 }
