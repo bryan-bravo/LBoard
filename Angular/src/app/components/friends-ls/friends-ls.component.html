@@ -17,13 +17,12 @@
   <label>Title</label>
   <input type="text" [(ngModel)]="newTitle" name="title">
   <label>Description</label>
-  <input type="text" [(ngModel)]="newDesc" name="desc">
+  <input id='add-l-width' type="text" [(ngModel)]="newDesc" name="desc">
   <!-- file input -->
   <label>Image (optional)</label>
   <input  type=file (change)='fileChangeListener($event)' />
   <img-cropper [image]="data1" #cropper [settings]="cropperSettings1" (onCrop)="cropped($event)" ></img-cropper>
   <button type="button" (click)="changeWarningState()" class='button'>Submit</button>
-
   <div id='warning' *ngIf="showWarning">
     <p>
       Is your information Correct? The LBoard ensures immutablity of L's
@@ -37,7 +36,7 @@
   <img src='../../../assets/cross-out.png' class='exit' (click)='resetFormHelpers()'>
 
   <label>Please upload an image of your friend</label>
-  <input  type=file (change)='fileChangeListener($event)' />
+  <input  id='profile-width' type=file (change)='fileChangeListener($event)' />
   <img-cropper [image]="data1" #cropper [settings]="cropperSettings1" (onCrop)="cropped($event)" ></img-cropper>
   <button id='updatephotosubmit' (click)="onUpdatePicture()" class='button'>Upload</button>
 </div>

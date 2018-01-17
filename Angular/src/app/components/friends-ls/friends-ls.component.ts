@@ -16,20 +16,16 @@ friendId:string;
 currentFriend:any;
 Ls:any[];
 profileSrc:string;
-
 showAddForm:boolean;
 showWarning:boolean;
 showUpdatePhoto:boolean;
-
 newTitle:string;
 newDesc:string;
-
-// Cropper 1 data
 data1:any;
 cropperSettings1:CropperSettings;
 @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
   constructor(
-		private navrouter:Router, 
+		private navrouter: Router, 
 		private router: ActivatedRoute,
 		private userService: UserService,
 		private flashMessage:FlashMessagesService){
@@ -40,8 +36,8 @@ cropperSettings1:CropperSettings;
 		this.cropperSettings1.croppedWidth = 200;
 		this.cropperSettings1.croppedHeight = 200;
 
-		this.cropperSettings1.canvasWidth = 500;
-		this.cropperSettings1.canvasHeight = 300;
+		this.cropperSettings1.canvasWidth =  300;
+		this.cropperSettings1.canvasHeight = 200;
 
 		this.cropperSettings1.minWidth = 100;
 		this.cropperSettings1.minHeight = 100;
@@ -141,27 +137,22 @@ cropperSettings1:CropperSettings;
 		});	
   }
   onUpdatePicture(){
-	this.userService.changeFriendPhoto(this.friendId,this.data1.image)
-	.subscribe(friend=>{
-		if(friend.hasOwnProperty('image'))
-		this.profileSrc=("data:image/png;base64,"+friend.image.data);
-		this.resetFormHelpers();
-	});			
+		this.userService.changeFriendPhoto(this.friendId,this.data1.image)
+		.subscribe(friend=>{
+			if(friend.hasOwnProperty('image'))
+			this.profileSrc=("data:image/png;base64,"+friend.image.data);
+			this.resetFormHelpers();
+		});			
   } 
   getFileFromInput(fileInput) {
-	let fi = fileInput.nativeElement;
-		if (fi.files && fi.files[0]) {
-				var fileToUpload = fi.files[0];
-		return fileToUpload;	
-	}
-	return null;
+		let fi = fileInput.nativeElement;
+			if (fi.files && fi.files[0]) {
+					var fileToUpload = fi.files[0];
+			return fileToUpload;	
+		}
+		return null;
   }
-getHeightForCanvas(){
 
-}
-getWidthForCanvas(){
-	
-}
 //display functions
   changeAddFormState(){
 	this.resetFormHelpers();
