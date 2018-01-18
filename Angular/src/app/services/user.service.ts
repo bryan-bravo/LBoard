@@ -7,7 +7,7 @@ export class UserService {
   isDev:boolean;
 
   constructor(private http:Http) {
-    this.isDev = true; // Change to false before deployment
+    this.isDev = false; // Change to false before deployment
   }
   //---user stuff-----------
 
